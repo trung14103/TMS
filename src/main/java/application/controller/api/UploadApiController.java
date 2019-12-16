@@ -24,7 +24,7 @@ public class UploadApiController {
         FileUploadResult result = new FileUploadResult();
         try {
             String newFilename = storageService.store(file);
-            message = "You successfully uploaded " +
+            message = "Successfully Uploaded " +
                     file.getOriginalFilename() + "!";
             result.setMessage(message);
             result.setSuccess(true);

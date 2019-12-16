@@ -107,6 +107,7 @@ public class BaseController {
         String  username = SecurityContextHolder.getContext().getAuthentication().getName();
         User userEntity = userService.findUserByUsername(username);
         if(userEntity!=null) {
+            vm.setUser(true);
             Role role = roleService.getRoleByUser(userEntity.getId());
             if(role.getId()== RoleIdConstant.Role_Admin){
                 vm.setAdmin(true);

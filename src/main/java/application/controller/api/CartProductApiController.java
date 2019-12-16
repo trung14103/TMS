@@ -55,7 +55,7 @@ public class CartProductApiController {
                         cartProduct.setProductEntity(productEntity);
                         cartProductService.addNewCartProduct(cartProduct);
                     }
-                    result.setMessage("Thêm vào giỏ hàng thành công!");
+                    result.setMessage("Add To Cart Successfully!");
                     result.setSuccess(true);
                     return result;
                 } else {

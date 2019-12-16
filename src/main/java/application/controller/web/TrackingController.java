@@ -101,7 +101,7 @@ public class TrackingController extends  BaseController{
                             guid = c.getValue();
                         }
                     }
-                    if(flag == true) {
+                    if(flag) {
                         orderEntityList = orderService.findOrderByGuidOrUserName2(guid,null);
                     }
                 }

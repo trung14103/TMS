@@ -5,6 +5,7 @@ public class LayoutHeaderAdminVM {
     private String userName;
     private String avatar;
     private boolean isAdmin;
+    private boolean isUser;
     private int id;
 
     public int getId() {
@@ -15,16 +16,26 @@ public class LayoutHeaderAdminVM {
         this.id = id;
     }
 
-    public LayoutHeaderAdminVM(String userName, String avatar, boolean isAdmin) {
+    public LayoutHeaderAdminVM(String userName, String avatar, boolean isAdmin, boolean isUser) {
         this.userName = userName;
         this.avatar = avatar;
         this.isAdmin = isAdmin;
+        this.isUser = isUser;
     }
 
     public LayoutHeaderAdminVM() {
-        this.userName = "anonymous";
+        this.userName = "Anonymous";
         this.avatar = "/link/avatar.jpg";
-        this.isAdmin=false;
+        this.isAdmin = false;
+        this.isUser = false;
+    }
+
+    public boolean isUser() {
+        return isUser;
+    }
+
+    public void setUser(boolean user) {
+        isUser = user;
     }
 
     public String getUserName() {
