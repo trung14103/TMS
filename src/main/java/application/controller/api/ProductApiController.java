@@ -22,8 +22,6 @@ import java.util.Random;
 @RequestMapping(path = "/api/product")
 public class ProductApiController {
 
-    private static final Logger logger = LogManager.getLogger(ProductApiController.class);
-
     @Autowired
     private ProductService productService;
 

@@ -4,14 +4,14 @@ $(document).ready(function () {
         var colorId = $(this).data("color");
         var linkPost="/api/color/delete/"+colorId;
         swal({
-            title: 'Bạn có chắc chắn muốn xóa màu sắc?',
-            text: "Bạn sẽ không có khả năng khôi phục!",
+            title: 'Do you want to delet this color?',
+            text: "You can not restore after deleting!",
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Xóa',
-            cancelButtonText:'Hủy'
+            confirmButtonText: 'Delete',
+            cancelButtonText:'Cancel'
         }).then(function(result)  {
             if (result.value) {
                 NProgress.start();
@@ -20,8 +20,8 @@ $(document).ready(function () {
                     if(res.data.success) {
                         swal(
                             {
-                                title:'Thành công',
-                                text:'Xóa thành công',
+                                title:'Success',
+                                text:'Successfully',
                                 type:'success',
                                 showCancelButton: false,
                                 timer:1500
@@ -101,8 +101,8 @@ $(document).ready(function () {
             if(res.data.success) {
                 swal(
                     {
-                        title:'Thành công',
-                        text:'Cập nhật thành công',
+                        title:'Success',
+                        text:'Update Successfully',
                         type:'success',
                         showCancelButton: false,
                         timer:1500

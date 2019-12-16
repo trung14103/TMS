@@ -15,7 +15,7 @@
                     Free Shipping On Orders Over 1.000.000 VND
                 </div>
 
-                <div sec:authorize="isAnonymous()"  class="right-top-bar text-black-50 flex-w h-full">
+                <div th:if="${!vm.getLayoutHeaderAdminVM().isUser()}" sec:authorize="isAnonymous()"  class="right-top-bar text-black-50 flex-w h-full">
                    <div class="dropdown">
                        <a style="font-size: 15px" href="#" class="flex-c-m trans-04 p-lr-25"  id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                            Check Order
@@ -56,7 +56,7 @@
                     </div>
                 </div>
 
-                <div sec:authorize="isAuthenticated()"  class="right-top-bar text-black-50 flex-w h-full">
+                <div th:if="${vm.getLayoutHeaderAdminVM().isUser()}" sec:authorize="isAuthenticated()"  class="right-top-bar text-black-50 flex-w h-full">
                     <div class="dropdown" style="">
                         <a style="font-size: 15px" href="#" class="flex-c-m trans-04 p-lr-25"  id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Check Orders

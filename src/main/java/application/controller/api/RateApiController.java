@@ -5,7 +5,6 @@ import application.data.service.ProductService;
 import application.data.service.RateService;
 import application.data.service.UserService;
 import application.model.api.BaseApiResult;
-import application.model.dto.CartProductDTO;
 import application.model.dto.RateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.xml.ws.Action;
 import java.util.Date;
 
 @RestController
@@ -44,13 +42,12 @@ public class RateApiController {
             rate.setUser(userEntity);
             rate.setRate(rateService.findOne(dto.getParentId()));
             rateService.addRate(rate);
-            result.setMessage("Đánh giá thành công!");
+            result.setMessage("Rate Successfully!");
             result.setSuccess(true);
             return result;
-        } catch (Exception e) {
-            // logger.error(e.getMessage());
+        } catch (Exception ignored) {
         }
-        result.setMessage("Không thêm được đánh giá!");
+        result.setMessage("Can Not Add Rate!");
         result.setSuccess(false);
         return result;
     }
