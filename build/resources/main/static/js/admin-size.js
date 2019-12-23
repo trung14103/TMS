@@ -4,8 +4,8 @@ $(document).ready(function () {
         var sizeId = $(this).data("size");
         var linkPost="/api/size/delete/"+sizeId;
         swal({
-            title: 'Bạn có chắc chắn muốn xóa size?',
-            text: "Bạn sẽ không có khả năng khôi phục!",
+            title: 'Do you want to delete this size?',
+            text: "You can not restore this!",
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -20,8 +20,8 @@ $(document).ready(function () {
                     if(res.data.success) {
                         swal(
                             {
-                                title:'Thành công',
-                                text:'Xóa thành công',
+                                title:'Success',
+                                text:'Delete Successfully',
                                 type:'success',
                                 showCancelButton: false,
                                 timer:1500

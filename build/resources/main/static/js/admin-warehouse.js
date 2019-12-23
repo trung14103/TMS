@@ -38,7 +38,7 @@ $(document).ready(function () {
                     //alert(textStatus);
                     if (textStatus === 'timeout') {
                         request.abort();
-                        alert('Không tìm thấy sản phẩm');
+                        alert('Can not find product');
 
                     }
                 }
@@ -108,7 +108,7 @@ $(document).ready(function () {
             if(res.data.success) {
                 swal(
                     {
-                        title:'Thành công',
+                        title:'Success',
                         text:res.data.message,
                         type:'success',
                         // showCancelButton: false,
@@ -130,7 +130,7 @@ $(document).ready(function () {
                 'Error',
                 'Some error when saving product',
                 'error'
-            );
+            );l
         })
     });
 

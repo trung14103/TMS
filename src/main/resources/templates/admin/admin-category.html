@@ -78,12 +78,12 @@
                                     <td th:text="${category.getName()}"></td>
                                     <td th:text="${category.getShortDesc()}"></td>
                                     <td  style="text-align: center">
-                                        <i class="fa fa-edit tooltip-test edit-category" title="Sửa" th:attr="data-category = ${category.getId()}" data-toggle="modal" data-target="#exampleModalLong" style="cursor: pointer; font-size: 20px"></i>
+                                        <i class="fa fa-edit tooltip-test edit-category" title="Edit" th:attr="data-category = ${category.getId()}" data-toggle="modal" data-target="#exampleModalLong" style="cursor: pointer; font-size: 20px"></i>
                                         <!--<i class="fa fa-trash-o tooltip-test del-category" th:attr="data-category = ${category.getId()}" style="cursor: pointer; color: red; font-size: 20px"></i>-->
                                     </td>
                                     <td  style="text-align: center">
                                         <!--<i class="fa fa-edit tooltip-test edit-category" th:attr="data-category = ${category.getId()}" data-toggle="modal" title="Edit Category" data-target="#exampleModalLong" style="cursor: pointer; font-size: 20px"></i>-->
-                                        <i class="fa fa-trash-o tooltip-test del-category" title="Xóa" th:attr="data-category = ${category.getId()}" style="cursor: pointer; color: red; font-size: 20px"></i>
+                                        <i class="fa fa-trash-o tooltip-test del-category" title="Delete" th:attr="data-category = ${category.getId()}" style="cursor: pointer; color: red; font-size: 20px"></i>
                                     </td>
                                 </tr>
                             </tbody>
@@ -107,7 +107,7 @@
                 <div class="modal-header" style="background-color: #1ab7ea; border-radius: 4px 4px 0 0;">
                     <div class="row">
                         <div class="col-sm-6">
-                            <h5 class="modal-title" style="color: white" id="exampleModalLongTitle">Update Category</h5>
+                            <h5 class="modal-title" style="color: white" id="exampleModalLongTitle">Add/Update Category</h5>
                         </div>
                         <div class="col-sm-6">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float:right">

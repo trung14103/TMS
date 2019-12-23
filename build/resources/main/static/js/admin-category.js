@@ -6,14 +6,14 @@ $(document).ready(function () {
         var linkPost="/api/category/delete/"+categoryId;
 
         swal({
-            title: 'Bạn có chắc chắn muốn xóa danh mục?',
-            text: "Bạn sẽ không có khả năng khôi phục!",
+            title: 'Do you want to delete this category?',
+            text: "You can not restore this after deleting!",
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Xóa',
-            cancelButtonText:'Hủy'
+            confirmButtonText: 'Delete',
+            cancelButtonText:'Cancel'
         }).then(function(result)  {
             if (result.value) {
                 NProgress.start();
@@ -22,8 +22,8 @@ $(document).ready(function () {
                     if(res.data.success) {
                         swal(
                             {
-                                title:'Thành công',
-                                text:'Xóa thành công',
+                                title:'Success',
+                                text:'Successfully Delete',
                                 type:'success',
                                 showCancelButton: false,
                                 timer:1500
@@ -41,8 +41,8 @@ $(document).ready(function () {
                 }, function(err){
                     NProgress.done();
                     swal(
-                        'Thất bại',
-                        'Lỗi ghi dữ liệu',
+                        'Failed',
+                        'Error writing database',
                         'error'
                     );
                 });
@@ -103,8 +103,8 @@ $(document).ready(function () {
             if(res.data.success) {
                 swal(
                     {
-                        title:'Thành công',
-                        text:'Ghi dữ liệu thành công',
+                        title:'Success',
+                        text:'Successfully Write Data',
                         type:'success',
                         showCancelButton: false,
                         timer:1500

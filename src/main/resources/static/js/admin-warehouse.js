@@ -130,7 +130,7 @@ $(document).ready(function () {
                 'Error',
                 'Some error when saving product',
                 'error'
-            );
+            );l
         })
     });
 

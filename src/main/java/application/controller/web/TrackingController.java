@@ -146,7 +146,7 @@ public class TrackingController extends  BaseController{
             if(orderEntityList.size()!=0){
                 vm.setKeyWord("OK");
             } else{
-                vm.setKeyWord("Không tìm thấy đơn hàng");
+                vm.setKeyWord("Can not find the order");
             }
 
         //set cart

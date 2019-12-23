@@ -1,5 +1,12 @@
 $(document).ready(function () {
 
+    $("#exampleModalLong").on("hide.bs.modal", function () {
+        $("#input-id").val('');
+        $("#input-name").val('');
+        $("#input-desc").val('');
+    });
+
+
     $(".del-color").on("click", function () {
         var colorId = $(this).data("color");
         var linkPost="/api/color/delete/"+colorId;

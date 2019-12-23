@@ -1,5 +1,12 @@
 $(document).ready(function () {
 
+    $("#exampleModalLong").on("hide.bs.modal", function () {
+        $("#input-id").val('');
+        $("#input-name").val('');
+        $("#input-desc").val('');
+    });
+
+
     $(".del-size").on("click", function () {
         var sizeId = $(this).data("size");
         var linkPost="/api/size/delete/"+sizeId;

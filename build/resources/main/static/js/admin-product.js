@@ -231,7 +231,6 @@ $(document).ready(function () {
                             $("#btn-del-image").removeClass("hidden");
 
                         } else {
-                            //update infor  trên grid
                         }
                         log.show("Update success", true);
                     } else {

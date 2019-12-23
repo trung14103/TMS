@@ -68,18 +68,16 @@
                     <div class="header-cart-item-txt p-t-8">
                         <a th:text="${cartProduct.getName()+'('+cartProduct.getSizeName()+'-'+cartProduct.getColorName()+')'}"
                            th:href="${'/product/'+cartProduct.getProductId()}" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-                            White Shirt Pleat
                         </a>
 
                         <span th:text="${cartProduct.getAmount()+'x'+cartProduct.getPrice()+' đ'}" class="header-cart-item-info">
-								1 x $19.00
 							</span>
                     </div>
                 </li>
             </ul>
 
             <div class="w-full">
-                <div th:text="${'Total: '+ vm.getTotalPrice()+' đ'}" class="header-cart-total w-full p-tb-40">
+                <div th:text="${'Total: '+ vm.getTotalPrice()+' $'}" class="header-cart-total w-full p-tb-40">
                 </div>
 
                 <div class="header-cart-buttons flex-w w-full">
