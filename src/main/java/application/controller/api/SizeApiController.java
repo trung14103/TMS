@@ -74,7 +74,7 @@ public class SizeApiController {
     }
 
     @PostMapping(value = "/create")
-    public BaseApiResult createProduct(@RequestBody Size dto){
+    public BaseApiResult createSize(@RequestBody Size dto){
         DataApiResult result = new DataApiResult();
 
         try {

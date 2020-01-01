@@ -87,7 +87,7 @@ public class SupplyApiController {
     }
 
     @PostMapping(value = "/create")
-    public BaseApiResult createProduct(@RequestBody SupplyDTO dto){
+    public BaseApiResult createSupply(@RequestBody SupplyDTO dto){
         DataApiResult result = new DataApiResult();
 
         try {
