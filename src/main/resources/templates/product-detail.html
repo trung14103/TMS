@@ -79,7 +79,7 @@
             </ul>
 
             <div class="w-full">
-                <div th:text="${'Tổng tiền: '+ vm.getTotalPrice()+' $'}" class="header-cart-total w-full p-tb-40">
+                <div th:text="${'Total: '+ vm.getTotalPrice()+' $'}" class="header-cart-total w-full p-tb-40">
                     Total: $75.00
                 </div>
 
@@ -90,7 +90,7 @@
                     </a>
 
                     <!--<a href="/order/checkout" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">-->
-                    <!--Thanh toán-->
+                    <!--Checkout-->
                     <!--</a>-->
                 </div>
             </div>
@@ -170,7 +170,7 @@
 					    <i th:each="i: ${#numbers.sequence(1,5)}" th:unless="${vm.getRateAvg()>= i}"
                            class="item-rating pointer zmdi zmdi-star-outline"></i>
                     </span> <br>
-                    <span class="mtext-106 cl2" th:text="${vm.getProductVM().getPrice()+' $'}">
+                    <span class="mtext-106 cl2" th:text="${vm.getProductVM().getPrice()+' VND'}">
 							Price
 						</span>
 

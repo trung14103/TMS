@@ -332,7 +332,7 @@ public class OrderController extends BaseController {
                         message.setEmail("system");
                         message.setStatus(1);
                         message.setCreatedDate(new Date());
-                        message.setTitle("Không đủ số lượng");
+                        message.setTitle("Not Enough Amount");
                         message.setContent(order.toString());
                         messageService.update(message);
                     } else{
@@ -653,12 +653,12 @@ public class OrderController extends BaseController {
                 orderDeliveryStatusService.add(orderDeliveryStatus);
 
                 Message message = new Message();
-                message.setTitle("Xóa đơn hàng");
+                message.setTitle("Cancel Order");
                 message.setEmail("system");
                 message.setCreatedDate(new Date());
                 message.setContent(order.toString());
                 messageService.update(message);
-                result.setMessage("Xóa đơn hàng thành công");
+                result.setMessage("Canceled Successfully");
                 result.setSuccess(true);
                 return result;
             } catch (Exception e){
@@ -667,7 +667,7 @@ public class OrderController extends BaseController {
                 return result;
             }
         }
-        result.setMessage("Không tìm thấy đơn hàng");
+        result.setMessage("Order Not Found");
         result.setSuccess(false);
         return result;
     }
@@ -692,7 +692,7 @@ public class OrderController extends BaseController {
            // if(order.getDeliveryStatusId()== DELIVERYSTATUS.SHIPPED ||
            //         order.getDeliveryStatusId()== DELIVERYSTATUS.CANCEL||
              //       order.getDeliveryStatusId()>dto.getStatus()){
-             //   result.setMessage("Cập nhật không thành công");
+             //   result.setMessage("Update Failed");
              //   result.setSuccess(false);
              //   return result;
            // }
@@ -705,11 +705,11 @@ public class OrderController extends BaseController {
             orderDeliveryStatus.setCreatedDate(new Date());
 
             orderDeliveryStatusService.add(orderDeliveryStatus);
-            result.setMessage("Cập nhật trạng thái thành công");
+            result.setMessage("Updated Successfully");
             result.setSuccess(true);
             return result;
         }
-        result.setMessage("Không tìm thấy đơn hàng");
+        result.setMessage("Order Not Found");
         result.setSuccess(false);
         return result;
     }

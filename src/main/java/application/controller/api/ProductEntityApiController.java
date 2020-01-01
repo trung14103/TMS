@@ -57,7 +57,7 @@ public class ProductEntityApiController {
 
             productEntityService.update(obj);
 
-            result.setMessage("Save successfully");
+            result.setMessage("Saved successfully");
             result.setSuccess(true);
         } catch (Exception e) {
             result.setSuccess(false);

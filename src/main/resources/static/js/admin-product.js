@@ -269,7 +269,7 @@ $(document).ready(function () {
                             swal(
                                 {
                                     title: 'Success',
-                                    text: 'Delete Successfully',
+                                    text: 'Deleted Successfully',
                                     type: 'success',
                                     showCancelButton: false,
                                     timer: 1500

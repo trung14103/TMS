@@ -40,7 +40,7 @@ public class ProductImageApiController {
         try{
             productImageService.update(productImage);
             result.setData(productImage);
-            result.setMessage("Update success!");
+            result.setMessage("Updated success!");
             result.setSuccess(true);
         } catch (Exception e){
             result.setMessage(e.getMessage());
@@ -63,7 +63,7 @@ public class ProductImageApiController {
 
         try{
             productImageService.delete(productImageId);
-            result.setMessage("Update success!");
+            result.setMessage("Updated success!");
             result.setSuccess(true);
         } catch (Exception e){
             result.setMessage(e.getMessage());

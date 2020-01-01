@@ -105,7 +105,7 @@
     <div class="container">
         <div class="p-b-10">
             <!--<h3 class="ltext-103 cl5">-->
-            <!--Cửa hàng-->
+            <!--Store-->
             <!--</h3>-->
         </div>
 
@@ -132,7 +132,7 @@
 						    <i th:each="i: ${#numbers.sequence(1,5)}" th:if="${product.getRateAvg()>= i}" class="zmdi zmdi-star"></i>
 					        <i th:each="i: ${#numbers.sequence(1,5)}" th:unless="${product.getRateAvg()>= i}" class="item-rating pointer zmdi zmdi-star-outline"></i>
                         </span>
-                            <span class="stext-105 cl3" th:text="${product.getPrice()+' đ'}">
+                            <span class="stext-105 cl3" th:text="${product.getPrice()+' VND'}">
 									$16.64
 								</span>
                         </div>

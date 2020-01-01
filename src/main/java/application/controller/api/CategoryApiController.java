@@ -19,7 +19,7 @@ public class CategoryApiController {
     @Autowired
     private CategoryService categoryService;
 
-    @RequestMapping(value="/detail", params = {"categoryId"}) //params có/không => tùy
+    @RequestMapping(value="/detail", params = {"categoryId"}) //params y/n
     public @ResponseBody CategoryVM getSupplyInfor (@RequestParam(value = "categoryId") int categoryId){
         Category category = categoryService.findOne(categoryId);
         if(category==null)
@@ -33,12 +33,12 @@ public class CategoryApiController {
         return CategoryVM;
     }
 
-    @PostMapping(value="/delete/{categoryId}") //params có/không => tùy
+    @PostMapping(value="/delete/{categoryId}") //params y/n
     public @ResponseBody BaseApiResult delete (@PathVariable int categoryId){
         BaseApiResult result= new BaseApiResult();
         try {
             result.setSuccess(true);
-            result.setMessage("Delete category successfully");
+            result.setMessage("Deleted category successfully");
             categoryService.delCategory(categoryId);
 
         }catch (Exception e) {
@@ -61,7 +61,7 @@ public class CategoryApiController {
             category.setShortDesc(dto.getShortDesc());
             categoryService.addNewCategory(category);
             result.setSuccess(true);
-            result.setMessage("Update category successfully");
+            result.setMessage("Updated category successfully");
         } catch (Exception e) {
             result.setSuccess(false);
             result.setMessage(e.getMessage());
@@ -80,7 +80,7 @@ public class CategoryApiController {
             category.setCreatedDate(new Date());
             categoryService.addNewCategory(category);
             result.setData(category.getId());
-            result.setMessage("Save category successfully: " + category.getId());
+            result.setMessage("Saved category successfully: " + category.getId());
             result.setSuccess(true);
         } catch (Exception e) {
             result.setSuccess(false);

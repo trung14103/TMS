@@ -211,7 +211,7 @@
                             <img th:src="${product.getMainImage()}" alt="IMG-PRODUCT">
 
                             <a href="#" data-toggle="modal" data-target="#myModal" th:attr="data-product=${product.getId()}" th:attrappend="data-target=${product.getId()}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                                Xem nhanh
+                                Quick View
                             </a>
                         </div>
 
@@ -224,7 +224,7 @@
 						    <i th:each="i: ${#numbers.sequence(1,5)}" th:if="${product.getRateAvg()>= i}" class="zmdi zmdi-star"></i>
 					        <i th:each="i: ${#numbers.sequence(1,5)}" th:unless="${product.getRateAvg()>= i}" class="item-rating pointer zmdi zmdi-star-outline"></i>
                         </span>
-                                <span th:text="${product.getPrice()+' đ'}"  class="stext-105 cl3">
+                                <span th:text="${product.getPrice()+' VND'}"  class="stext-105 cl3">
 										$16.64
 									</span>
                             </div>

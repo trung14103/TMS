@@ -295,7 +295,7 @@ public class HomeController extends BaseController {
 
         if (productName.getName() != null && !productName.getName().isEmpty()) {
             productPage = productService.getListProduct(pageable, categoryId, productName.getName().trim(), colorId, sizeId, supplyId);
-            vm.setKeyWord("Tìm kiếm: " + productName.getName());
+            vm.setKeyWord("Search: " + productName.getName());
         } else {
             productPage = productService.getListProduct(pageable, categoryId, null, colorId, sizeId, supplyId);
         }

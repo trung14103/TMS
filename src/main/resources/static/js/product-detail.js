@@ -72,8 +72,8 @@ $(document).ready(function () {
         data.parentId=$(this).data("rate");
         if(data.comment==0){
             swal(
-                'Xảy ra lỗi',
-                'Bạn chưa viết bình luận',
+                'An Error Occurred',
+                'You did not leave any comment',
                 'error'
             );
             $("#review").focus();
@@ -89,7 +89,7 @@ $(document).ready(function () {
             if(res.data.success) {
                 location.reload();
                 // swal({
-                //         title: 'Thành công',
+                //         title: 'Success',
                 //         text:  res.data.message,
                 //         type:'success' ,
                 //         timer:1500
@@ -100,7 +100,7 @@ $(document).ready(function () {
                 // });
             } else {
                 swal(
-                    'Xảy ra lỗi',
+                    'An Error Occurred',
                     res.data.message,
                     'error'
                 );

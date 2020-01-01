@@ -76,7 +76,7 @@ public class CartProductApiController {
                         cartProduct.setProductEntity(productEntity);
                         cartProductService.addNewCartProduct(cartProduct);
                     }
-                    result.setMessage("Thêm vào giỏ hàng thành công!");
+                    result.setMessage("Successfully Added to Cart!");
                     result.setSuccess(true);
                     return result;
                 }
@@ -84,7 +84,7 @@ public class CartProductApiController {
         } catch (Exception e) {
            // logger.error(e.getMessage());
         }
-        result.setMessage("Không thêm được vào giỏ hàng!");
+        result.setMessage("Unable to Add to Cart!");
         result.setSuccess(false);
         return result;
     }
@@ -100,7 +100,7 @@ public class CartProductApiController {
                 if(cartProductEntity != null) {
                     cartProductEntity.setAmount(dto.getAmount());
                     cartProductService.updateCartProduct(cartProductEntity);
-                    result.setMessage("Cập nhật thành công!");
+                    result.setMessage("Updated Successfully!");
                     result.setSuccess(true);
                     return result;
                 }
@@ -109,9 +109,9 @@ public class CartProductApiController {
            // logger.error(e.getMessage());
         }
         if(dto.getAmount() == 0)
-            result.setMessage("Số lượng phải lớn hơn 0!");
+            result.setMessage("Amount must more than 0!");
         else
-            result.setMessage("Cập nhật thất bại!");
+            result.setMessage("Update Fail!");
 
         result.setSuccess(false);
         return result;
@@ -123,7 +123,7 @@ public class CartProductApiController {
 
         try {
             if(cartProductService.deleteCartProduct(cartProductId) == true) {
-                result.setMessage("Xóa thành công");
+                result.setMessage("Successfully Deleted");
                 result.setSuccess(true);
                 return result;
             }
@@ -131,7 +131,7 @@ public class CartProductApiController {
             //logger.error(e.getMessage());
         }
         result.setSuccess(false);
-        result.setMessage("Xảy ra lỗi!");
+        result.setMessage("An Error Occurred!");
         return result;
     }
 }

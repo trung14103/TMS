@@ -36,7 +36,7 @@ public class FavouriteApiController {
         User userEntity = userService.findUserByUsername(username);
         Product product = productService.findOne(dto.getProductId());
         if(product==null){
-            result.setMessage("Không tìm thấy sản phẩm!");
+            result.setMessage("Product not found!");
             result.setSuccess(false);
             return result;
         }
@@ -48,7 +48,7 @@ public class FavouriteApiController {
             favourite.setGuid(dto.getGuid());
             favourite.setCreatedDate(new Date());
             favouriteService.addNewFavourite(favourite);
-            result.setMessage(product.getName()+ " đã được thêm vào yêu thích!");
+            result.setMessage(product.getName()+ " is added to wishlist!");
             result.setSuccess(true);
             return result;
 
@@ -58,7 +58,7 @@ public class FavouriteApiController {
             result.setSuccess(false);
             return result;
         }
-      //  result.setMessage("Không đã được thêm vào giỏ hàng thành công!");
+      //  result.setMessage("Can not add!");
        // result.setSuccess(false);
        // return result;
 

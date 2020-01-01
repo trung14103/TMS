@@ -62,7 +62,7 @@ public class ProductApiController {
 
             productService.addNewProduct(product);
             result.setData(product.getId());
-            result.setMessage("Save product successfully: " + product.getId());
+            result.setMessage("Saved product successfully: " + product.getId());
             result.setSuccess(true);
         } catch (Exception e) {
             result.setSuccess(false);
@@ -79,7 +79,7 @@ public class ProductApiController {
             Product product=productService.findOne(productId);
             if(product==null){
                 result.setSuccess(false);
-                result.setMessage("Can't find this product");
+                result.setMessage("Can not find this product");
                 return result;
             }
 
@@ -165,7 +165,7 @@ public class ProductApiController {
             product.setPromotion(promotionService.findOne(dto.getPromotionId()));
             productService.addNewProduct(product);
             result.setSuccess(true);
-            result.setMessage("Update product successfully");
+            result.setMessage("Updated product successfully");
         } catch (Exception e) {
             result.setSuccess(false);
             result.setMessage(e.getMessage());
@@ -183,7 +183,7 @@ public class ProductApiController {
             Product productEntity = productService.findOne(productId);
             if(productEntity == null) {
                 result.setSuccess(false);
-                result.setMessage("Can't find this product");
+                result.setMessage("Can not find this product");
             } else {
                 ProductDTO dto = new ProductDTO();
                 dto.setId(productEntity.getId());
@@ -221,7 +221,7 @@ public class ProductApiController {
         try {
             productService.deleteProduct(productId);
             result.setSuccess(true);
-            result.setMessage("Delete product successfully");
+            result.setMessage("Deleted product successfully");
 
         }catch (Exception e) {
             result.setSuccess(false);
@@ -254,7 +254,7 @@ public class ProductApiController {
             List<Product> productList= productService.getListProductByName(productName);
             if(productList == null) {
                 result.setSuccess(false);
-                result.setMessage("Can't find this product");
+                result.setMessage("Can not find this product");
             } else {
                 List<ProductVM> productVMList = new ArrayList<>();
                 for (Product product : productList) {

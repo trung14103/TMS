@@ -99,7 +99,7 @@ public class AdminController extends  BaseController {
         List<Supply> supplyList;
         if (supplyName.getName() != null) {
             supplyList = supplyService.getListSupplyByName(supplyName.getName());
-            vm.setKeyWord("Tìm kiếm: "+supplyName.getName());
+            vm.setKeyWord("Search: "+supplyName.getName());
         } else {
             supplyList = supplyService.getAll();
             vm.setKeyWord("");
@@ -188,7 +188,7 @@ public class AdminController extends  BaseController {
         List<Promotion> promotionList;
         if (promotionName.getName() != null) {
             promotionList = promotionService.getListSupplyByName(promotionName.getName());
-            vm.setKeyWord("Tìm kiếm: "+promotionName.getName());
+            vm.setKeyWord("Search: "+promotionName.getName());
         } else {
             promotionList = promotionService.getAll();
             vm.setKeyWord("");
@@ -236,7 +236,7 @@ public class AdminController extends  BaseController {
         List<Size> sizeList;
         if (sizeName.getName() != null) {
             sizeList = sizeService.getListSizeByName(sizeName.getName());
-            vm.setKeyWord("Tìm kiếm: "+sizeName.getName());
+            vm.setKeyWord("Search: "+sizeName.getName());
         } else {
             sizeList = sizeService.getAll();
             vm.setKeyWord("");
@@ -280,7 +280,7 @@ public class AdminController extends  BaseController {
         List<Color> colorList;
         if (colorName.getName() != null) {
             colorList = colorService.getListColorByName(colorName.getName());
-            vm.setKeyWord("Tìm kiếm: "+colorName.getName());
+            vm.setKeyWord("Search: "+colorName.getName());
         } else {
             colorList = colorService.getAll();
             vm.setKeyWord("");
@@ -368,7 +368,7 @@ public class AdminController extends  BaseController {
 
         if (productName.getName() != null && !productName.getName().isEmpty()) {
             productPage = productService.getListProductByCategoryOrProductNameContaining(pageable,null,productName.getName().trim());
-            vm.setKeyWord("Tìm kiếm: " + productName.getName());
+            vm.setKeyWord("Search: " + productName.getName());
         } else {
             productPage = productService.getListProductByCategoryOrProductNameContaining(pageable,null,null);
         }
@@ -499,7 +499,7 @@ public class AdminController extends  BaseController {
 
         if (productName.getName() != null && !productName.getName().isEmpty()) {
             productPage = productService.getListProductByCategoryOrProductNameContaining(pageable,null,productName.getName().trim());
-            vm.setKeyWord("Tìm kiếm: " + productName.getName());
+            vm.setKeyWord("Search: " + productName.getName());
         } else {
             productPage = productService.getListProductByCategoryOrProductNameContaining(pageable,null,null);
         }
@@ -565,7 +565,7 @@ public class AdminController extends  BaseController {
             else
                 orderPage = orderService.getListOrderByCustomerName2(pageable,customerName.getCustomerName().trim(),customerName.getDeliveryStatusId());
 
-            vm.setKeyWord("Tìm kiếm: " + customerName.getCustomerName());
+            vm.setKeyWord("Search: " + customerName.getCustomerName());
         } else {
             if(customerName.getDeliveryStatusId()==0)
                 orderPage = orderService.getListOrderByCustomerName(pageable,null);
@@ -741,7 +741,7 @@ public class AdminController extends  BaseController {
 
         if (messageVM.getKeyword() != null && !messageVM.getKeyword().isEmpty()) {
             messagePage = messageService.getAllSearch(pageable,messageVM.getKeyword().trim());
-            vm.setKeyWord("Tìm kiếm: " + messageVM.getKeyword());
+            vm.setKeyWord("Search: " + messageVM.getKeyword());
         } else {
             messagePage = messageService.getAllSearch(pageable,null);
         }
@@ -895,7 +895,7 @@ public class AdminController extends  BaseController {
 
         if (userName.getUserName() != null && !userName.getUserName().isEmpty()) {
             userPage = userService.getList(pageable,userName.getUserName().trim());
-            vm.setKeyWord("Tìm kiếm: " + userName.getUserName());
+            vm.setKeyWord("Search: " + userName.getUserName());
         } else {
             userPage = userService.getList(pageable,null);
         }

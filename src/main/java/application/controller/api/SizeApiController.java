@@ -22,7 +22,7 @@ public class SizeApiController {
     @Autowired
     private SizeService sizeService;
 
-    @RequestMapping(value="/detail", params = {"sizeId"}) //params có/không => tùy
+    @RequestMapping(value="/detail", params = {"sizeId"}) //params y/n
     public @ResponseBody SizeVM getSizeInfor (@RequestParam(value = "sizeId") int sizeId){
         Size size = sizeService.findOne(sizeId);
         if(size==null)
@@ -36,12 +36,12 @@ public class SizeApiController {
         return sizeVM;
     }
 
-    @PostMapping(value="/delete/{sizeId}") //params có/không => tùy
+    @PostMapping(value="/delete/{sizeId}") //params y/n
     public @ResponseBody BaseApiResult delete (@PathVariable int sizeId){
         BaseApiResult result= new BaseApiResult();
         try {
             result.setSuccess(true);
-            result.setMessage("Delete category successfully");
+            result.setMessage("Deleted category successfully");
             sizeService.delSize(sizeId);
 
         }catch (Exception e) {
@@ -65,7 +65,7 @@ public class SizeApiController {
             size.setShortDesc(dto.getShortDesc());
             sizeService.addNewSize(size);
             result.setSuccess(true);
-            result.setMessage("Update size successfully");
+            result.setMessage("Updated size successfully");
         } catch (Exception e) {
             result.setSuccess(false);
             result.setMessage(e.getMessage());
@@ -84,7 +84,7 @@ public class SizeApiController {
             size.setCreatedDate(new Date());
             sizeService.addNewSize(size);
             result.setData(size.getId());
-            result.setMessage("Save size successfully: " + size.getId());
+            result.setMessage("Saved size successfully: " + size.getId());
             result.setSuccess(true);
         } catch (Exception e) {
             result.setSuccess(false);

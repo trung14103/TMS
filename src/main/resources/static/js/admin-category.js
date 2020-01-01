@@ -108,7 +108,7 @@ $(document).ready(function () {
                 swal(
                     {
                         title:'Success',
-                        text:'Successfully Write Data',
+                        text:'Successfully Saved Data',
                         type:'success',
                         showCancelButton: false,
                         timer:1500

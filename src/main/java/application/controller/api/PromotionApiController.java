@@ -20,7 +20,7 @@ public class PromotionApiController {
     @Autowired
     private PromotionService promotionService;
 
-    @RequestMapping(value="/detail", params = {"promotionId"}) //params có/không => tùy
+    @RequestMapping(value="/detail", params = {"promotionId"}) //params y/n
     public @ResponseBody PromotionVM getPromotionInfor (@RequestParam(value = "promotionId") int promotionId){
         Promotion promotion = promotionService.findOne(promotionId);
         if(promotion==null)
@@ -36,12 +36,12 @@ public class PromotionApiController {
         return promotionVM;
     }
 
-    @PostMapping(value="/delete/{promotionId}") //params có/không => tùy
+    @PostMapping(value="/delete/{promotionId}") //params y/n
     public @ResponseBody BaseApiResult delete (@PathVariable int promotionId){
         BaseApiResult result= new BaseApiResult();
         try {
             result.setSuccess(true);
-            result.setMessage("Delete promotion successfully");
+            result.setMessage("Deleted promotion successfully");
             promotionService.delPromotion(promotionId);
 
         }catch (Exception e) {
@@ -66,7 +66,7 @@ public class PromotionApiController {
             promotion.setEndDate(dto.getEndDate());
             promotionService.addNewPromotion(promotion);
             result.setData(promotion.getId());
-            result.setMessage("Save promotion successfully: " + promotion.getId());
+            result.setMessage("Saved promotion successfully: " + promotion.getId());
             result.setSuccess(true);
         } catch (Exception e) {
             result.setSuccess(false);
@@ -90,7 +90,7 @@ public class PromotionApiController {
             promotion.setEndDate(dto.getEndDate());
             promotionService.addNewPromotion(promotion);
             result.setSuccess(true);
-            result.setMessage("Update promotion successfully");
+            result.setMessage("Updated promotion successfully");
         } catch (Exception e) {
             result.setSuccess(false);
             result.setMessage(e.getMessage());

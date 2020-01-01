@@ -109,7 +109,7 @@ $(document).ready(function () {
                 swal(
                     {
                         title:'Success',
-                        text:'Update Successfully',
+                        text:'Updated Successfully',
                         type:'success',
                         showCancelButton: false,
                         timer:1500

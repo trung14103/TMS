@@ -61,10 +61,10 @@ public class UserApiController {
                 UserRole userRole = userRoleService.getUserRoleByUser(user.getId());
                 userRole.setRoleId(userVM.getRoleId());
                 userRoleService.update(userRole);
-                result.setMessage("Thay đổi thành công");
+                result.setMessage("Changed Successfully");
                 result.setSuccess(true);
             } else {
-                result.setMessage("Lỗi ghi dữ liệu");
+                result.setMessage("Fail to save");
                 result.setSuccess(false);
             }
         } catch (Exception e) {
@@ -82,7 +82,7 @@ public class UserApiController {
             user.setStatus(0);
             userService.updateUser(user);
             result.setSuccess(true);
-            result.setMessage("Xóa tài khoản thành công");
+            result.setMessage("Deleted Successfully");
             return result;
 
         }catch (Exception e) {

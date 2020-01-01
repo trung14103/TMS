@@ -62,7 +62,7 @@
 						<i th:each="i: ${#numbers.sequence(1,5)}" th:if="${product.getRateAvg()>= i}" class="zmdi zmdi-star"></i>
 					    <i th:each="i: ${#numbers.sequence(1,5)}" th:unless="${product.getRateAvg()>= i}" class="item-rating pointer zmdi zmdi-star-outline"></i>
                     </span> <br>
-                        <span class="mtext-106 cl2" th:text="${product.getPrice()+' đ'}">
+                        <span class="mtext-106 cl2" th:text="${product.getPrice()+' VND'}">
 							Price
 						</span>
 

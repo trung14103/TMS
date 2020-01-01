@@ -65,7 +65,7 @@ $(document).ready(function () {
             }
         }
         state.amount=amount;
-        $("#warehouse").text("(Còn "+amount+" sản phẩm)");
+        $("#warehouse").text("(Only "+amount+" left.)");
 
     };
 

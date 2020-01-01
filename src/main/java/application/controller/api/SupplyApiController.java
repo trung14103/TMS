@@ -17,7 +17,7 @@ public class SupplyApiController {
     @Autowired
     private SupplyService supplyService;
 
-    @RequestMapping(value="/detail", params = {"supplyId"}) //params có/không => tùy
+    @RequestMapping(value="/detail", params = {"supplyId"}) //params y/n
     public @ResponseBody SupplyVM getSupplyInfor (@RequestParam(value = "supplyId") int supplyId){
         Supply supply = supplyService.findOne(supplyId);
         if(supply==null)
@@ -31,7 +31,7 @@ public class SupplyApiController {
         return supplyVM;
     }
 
-    @PostMapping(value="/delete/{supplyId}") //params có/không => tùy
+    @PostMapping(value="/delete/{supplyId}") //params y/n
     public @ResponseBody BaseApiResult delete (@PathVariable int supplyId){
         BaseApiResult result= new BaseApiResult();
         try {
@@ -58,7 +58,7 @@ public class SupplyApiController {
 //            supply.setShortDesc(supplyVM.getShortDesc());
 //            supplyService.addNewSupply(supply);
 //            result.setSuccess(true);
-//            result.setMessage("Update product successfully");
+//            result.setMessage("Updated product successfully");
 //        } catch (Exception e) {
 //            result.setSuccess(false);
 //            result.setMessage(e.getMessage());
@@ -78,7 +78,7 @@ public class SupplyApiController {
             supply.setShortDesc(dto.getShortDesc());
             supplyService.addNewSupply(supply);
             result.setSuccess(true);
-            result.setMessage("Update supply successfully");
+            result.setMessage("Updated supply successfully");
         } catch (Exception e) {
             result.setSuccess(false);
             result.setMessage(e.getMessage());
@@ -97,7 +97,7 @@ public class SupplyApiController {
             supply.setCreatedDate(new Date());
             supplyService.addNewSupply(supply);
             result.setData(supply.getId());
-            result.setMessage("Save supply successfully: " + supply.getId());
+            result.setMessage("Saved supply successfully: " + supply.getId());
             result.setSuccess(true);
         } catch (Exception e) {
             result.setSuccess(false);

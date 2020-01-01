@@ -27,13 +27,13 @@ var log = new Log();
 
 function Log() {
     /**
-    *Thực hiện thông báo cho phép sử các phím tắt để thực hiện đóng form (enter, esc);
-    *Lời gọi: log.alert('Chọn nhiều bản ghi', 'Chú ý nhé', function () {	console.log('Say something');}.bind(this));//Trong đó bắt buộc phải có tham số đầu tiên
+    *Make a notification that allows you to use keyboard shortcuts to perform close form (enter, esc);
+    *Call: log.alert('Select many records', 'Alert', function () {	console.log('Say something');}.bind(this));//must have the first parameter
     */
     this.alert = function (content, title, callback) {
-        if (!title)//Mặc định
+        if (!title)//Default
         {
-            title = 'Thông báo';
+            title = 'Notification';
         }
         if (!!callback) {
             $.alert({ title: title, content: content, closeIcon: true, buttons: { confirm: { text: 'OK', keys: ['enter', 'esc'], action: callback } } });
@@ -42,12 +42,12 @@ function Log() {
         }
     };
     /**
-    *Thực hiện đưa ra lời hỏi với lựa chọn yes/no; Mặc định Y, enter: sẽ chọn yes; N, esc: sẽ chọn no
-    *Lời gọi: log.confirm('Xóa bản ghi','Chú ý',function(){console.log('Thực hiện lệnh xóa');}.bind(this),function(){console.log('Không thực hiện lệnh xóa');}.bind(this)); //Trong đó bắt buộc phải có tham số đầu tiên
+    *Execute giving a question with a opt yes/no; default Y, enter:  yes; N, esc:  no
+    *Call: log.confirm('Delete record','Chú ý',function(){console.log('Execute Delete');}.bind(this),function(){console.log('Can not execute delete');}.bind(this)); //must have the first parameter
     */
     this.confirm = function (content, title, yescallback, nocallback) {
         if (!title) {
-            title = 'Xác nhận';
+            title = 'Confirm';
         }
         $.confirm({
             title: title, content: content,

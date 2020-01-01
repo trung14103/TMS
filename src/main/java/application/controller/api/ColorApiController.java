@@ -17,7 +17,7 @@ public class ColorApiController {
     @Autowired
     private ColorService colorService;
 
-    @RequestMapping(value="/detail", params = {"colorId"}) //params có/không => tùy
+    @RequestMapping(value="/detail", params = {"colorId"}) //params y/n
     public @ResponseBody ColorVM getcolorInfor (@RequestParam(value = "colorId") int colorId){
         Color color = colorService.findOne(colorId);
         if(color==null)
@@ -31,12 +31,12 @@ public class ColorApiController {
         return colorVM;
     }
 
-    @PostMapping(value="/delete/{colorId}") //params có/không => tùy
+    @PostMapping(value="/delete/{colorId}") //params y/n
     public @ResponseBody BaseApiResult delete (@PathVariable int colorId){
         BaseApiResult result= new BaseApiResult();
         try {
             result.setSuccess(true);
-            result.setMessage("Delete color successfully");
+            result.setMessage("Deleted color successfully");
             colorService.delColor(colorId);
 
         }catch (Exception e) {
@@ -60,7 +60,7 @@ public class ColorApiController {
             color.setShortDesc(dto.getShortDesc());
             colorService.addNewColor(color);
             result.setSuccess(true);
-            result.setMessage("Update color successfully");
+            result.setMessage("Updated color successfully");
         } catch (Exception e) {
             result.setSuccess(false);
             result.setMessage(e.getMessage());
@@ -79,7 +79,7 @@ public class ColorApiController {
             color.setCreatedDate(new Date());
             colorService.addNewColor(color);
             result.setData(color.getId());
-            result.setMessage("Save color successfully: " + color.getId());
+            result.setMessage("Saved color successfully: " + color.getId());
             result.setSuccess(true);
         } catch (Exception e) {
             result.setSuccess(false);
