@@ -1,5 +1,6 @@
 package application.data.repository;
 
+import application.data.model.Category;
 import application.data.model.Color;
 import application.data.model.DeliveryStatus;
 import application.model.viewmodel.DeliveryStatusVM;
@@ -16,4 +17,10 @@ public interface DeliveryStatusRepository extends JpaRepository<DeliveryStatus, 
             "JOIN dbo_delivery_status  ds on ods.delivery_status_id=ds.delivery_status_id " +
             "WHERE ods.order_id=:orderId", nativeQuery = true)
     List<DeliveryStatusVM> getByOrderId(@Param("orderId") Integer orderId);
+
+    @Query(value = "SELECT * FROM dbo_delivery_status WHERE delivery_status_id=:deliveryId",nativeQuery = true)
+    DeliveryStatus findOne(@Param("deliveryId") int deliveryId);
+
+    @Query(value = "SELECT * FROM dbo_delivery_status ", nativeQuery = true)
+    List<DeliveryStatus> findAll();
 }

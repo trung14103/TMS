@@ -14,11 +14,7 @@ public class ProductEntityService {
     @Autowired
     ProductEntityRepository productEntityRepository;
 
-    public void updateMulti(List<ProductEntity> productEntityList)
-    {
-        productEntityRepository.save(productEntityList);
-    }
-    public void update(ProductEntity productEntityList)
+   public void update(ProductEntity productEntityList)
     {
         productEntityRepository.save(productEntityList);
     }
@@ -30,6 +26,7 @@ public class ProductEntityService {
     public ProductEntity findOne(Integer productEntityId){
         return productEntityRepository.findOne(productEntityId);
     }
+
     public ProductEntity getByProductSizeColor(Integer productId,Integer colorId,Integer sizeId){
         return productEntityRepository.getByProductSizeColor(productId,colorId,sizeId);
     }
@@ -37,14 +34,5 @@ public class ProductEntityService {
     public  List<ProductEntity> getAll(){
         return productEntityRepository.getAll();
     }
-//    public boolean update(ProductEntity productEntity) {
-//        try {
-//            productEntityRepository.save(productEntity);
-//            return true;
-//        } catch (Exception e) {
-//          //  logger.error(e.getMessage());
-//        }
-//        return false;
-//    }
 
 }

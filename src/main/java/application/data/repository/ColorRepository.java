@@ -18,4 +18,10 @@ public interface ColorRepository extends JpaRepository<Color,Integer> {
             "WHERE pe.product_id=:productId " +
             "ORDER BY c.name", nativeQuery = true)
     List<Color> getListColorByProductId (@Param("productId") Integer productId);
+
+    @Query(value = "SELECT * FROM dbo_color WHERE color_id=:colorId", nativeQuery = true)
+    Color findOne(@Param("colorId") int colorId);
+
+    @Query(value = "SELECT * FROM dbo_color ", nativeQuery = true)
+    List<Color> findAll();
 }

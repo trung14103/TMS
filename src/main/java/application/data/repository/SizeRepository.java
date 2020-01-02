@@ -1,6 +1,7 @@
 package application.data.repository;
 
 import application.data.model.Category;
+import application.data.model.Color;
 import application.data.model.Size;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,4 +19,10 @@ public interface SizeRepository extends JpaRepository<Size,Integer> {
             "WHERE pe.product_id=:productId " +
             "ORDER BY s.name", nativeQuery = true)
     List<Size> getListSizeByProductId (@Param("productId") Integer productId);
+
+    @Query(value = "SELECT * FROM dbo_size WHERE size_id=:sizeId", nativeQuery = true)
+    Size findOne(@Param("sizeId") int sizeId);
+
+    @Query(value = "SELECT * FROM dbo_size ", nativeQuery = true)
+    List<Size> findAll();
 }

@@ -33,7 +33,11 @@ public class ContactApiController {
             obj.setImportant(0);
             obj.setSent(0);
             messageService.update(obj);
+<<<<<<< HEAD
             result.setMessage("We will contact you fastest we can!");
+=======
+            result.setMessage("We wil contact you as soon as possible!");
+>>>>>>> f58b9e10b99808b54eca028266e1c5fac369c94f
             result.setSuccess(true);
             return result;
         }catch (Exception e){

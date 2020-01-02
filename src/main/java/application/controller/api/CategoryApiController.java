@@ -19,7 +19,11 @@ public class CategoryApiController {
     @Autowired
     private CategoryService categoryService;
 
+<<<<<<< HEAD
     @RequestMapping(value="/detail", params = {"categoryId"}) //params y/n
+=======
+    @RequestMapping(value="/detail", params = {"categoryId"})
+>>>>>>> f58b9e10b99808b54eca028266e1c5fac369c94f
     public @ResponseBody CategoryVM getSupplyInfor (@RequestParam(value = "categoryId") int categoryId){
         Category category = categoryService.findOne(categoryId);
         if(category==null)
@@ -33,7 +37,11 @@ public class CategoryApiController {
         return CategoryVM;
     }
 
+<<<<<<< HEAD
     @PostMapping(value="/delete/{categoryId}") //params y/n
+=======
+    @PostMapping(value="/delete/{categoryId}")
+>>>>>>> f58b9e10b99808b54eca028266e1c5fac369c94f
     public @ResponseBody BaseApiResult delete (@PathVariable int categoryId){
         BaseApiResult result= new BaseApiResult();
         try {

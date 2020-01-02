@@ -1,7 +1,6 @@
 package application.data.repository;
 
 import application.data.model.Category;
-import application.data.model.Supply;
 import application.model.viewmodel.ChartLabelDataVM;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -20,4 +19,10 @@ public interface CategoryRepository extends JpaRepository<Category,Integer> {
             "group by c.id " +
             "order by c.name asc")
     List<ChartLabelDataVM> countProductByName();
+
+    @Query(value = "SELECT * FROM dbo_category WHERE category_id=:categoryId", nativeQuery = true)
+    Category findOne(@Param("categoryId") int categoryId);
+
+    @Query(value = "SELECT * FROM dbo_category ", nativeQuery = true)
+    List<Category> findAll();
 }

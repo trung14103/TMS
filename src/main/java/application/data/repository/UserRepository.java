@@ -27,7 +27,6 @@ public interface UserRepository  extends JpaRepository<User,Integer> {
             "and u.status=1")
     Page<User> getList(Pageable pageable, @Param("key") String key);
 
-
-//    @Query ("select u from dbo_user u where u.userName = :username")
-//    Iterable<User> findByUserName(@Param("username") String userName);
+    @Query(value = "select * from dbo_user where user_id=:userId", nativeQuery = true)
+    User findOne(@Param("userId") Integer userId);
 }

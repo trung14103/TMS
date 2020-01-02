@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface MessageRepository extends JpaRepository<Message, Integer> {
     @Query("SELECT m FROM dbo_message m " +
             "WHERE (:keyword IS NULL OR UPPER(m.email) LIKE CONCAT('%',UPPER(:keyword),'%')) " +
@@ -21,7 +23,11 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
 
     @Query("SELECT count(m.id) FROM dbo_message  m " +
             "WHERE  status =1 ")
-   Integer getTotalUnread();
+    Integer getTotalUnread();
 
+    @Query(value = "select * from dbo_message where message_id=:messageId", nativeQuery = true)
+    Message findOne(@Param("messageId") Integer messageId);
 
+    @Query(value = "select * from dbo_message", nativeQuery = true)
+    List<Message> findAll();
 }
