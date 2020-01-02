@@ -504,7 +504,7 @@ function getAmount() {
     }
     state2.amount=amount;
     var spanId='#warehouse'+state2.id;
-    $(spanId).text("(Còn "+amount+" sản phẩm)");
+    $(spanId).text("(Only "+amount+" left)");
 
 };
 

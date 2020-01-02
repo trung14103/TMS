@@ -42,8 +42,8 @@ $(document).ready(function () {
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Xóa',
-            cancelButtonText:'Hủy'
+            confirmButtonText: 'Delete',
+            cancelButtonText:'Cancel'
         }).then(function(result)  {
             if (result.value) {
                 NProgress.start();

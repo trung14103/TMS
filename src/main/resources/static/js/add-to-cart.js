@@ -65,7 +65,7 @@ $(document).ready(function () {
             }
         }
         state.amount=amount;
-        $("#warehouse").text("(Only "+amount+" left.)");
+        $("#warehouse").text("(Only "+amount+" left)");
 
     };
 
