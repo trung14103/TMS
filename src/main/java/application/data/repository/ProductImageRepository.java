@@ -10,12 +10,9 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface ProductImageRepository extends JpaRepository<ProductImage,Integer> {
-<<<<<<< HEAD
-=======
     @Query(value = "select * from dbo_product_image where product_id=:productId", nativeQuery = true)
     ProductImage findOne(@Param("productId") Integer productId);
 
     @Query(value = "select * from dbo_product_image", nativeQuery = true)
     List<ProductImage> findAll();
->>>>>>> f58b9e10b99808b54eca028266e1c5fac369c94f
 }
