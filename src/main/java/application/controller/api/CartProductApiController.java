@@ -122,7 +122,7 @@ public class CartProductApiController {
         BaseApiResult result = new BaseApiResult();
 
         try {
-            if(cartProductService.deleteCartProduct(cartProductId) == true) {
+            if(cartProductService.deleteCartProduct(cartProductId)) {
                 result.setMessage("Xóa thành công");
                 result.setSuccess(true);
                 return result;

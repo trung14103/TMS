@@ -13,11 +13,6 @@ public class ProductImageService {
     @Autowired
     ProductImageRepository  productImageRepository;
 
-//    public List<ProductImage> getListImageByProductId(int productId)
-//    {
-//        return  productImageRepository.getListImageByProductId(productId);
-//    }
-
     public ProductImage findOne(int productImageId){
         return productImageRepository.findOne(productImageId);
     }
@@ -35,9 +30,4 @@ public class ProductImageService {
         productImageRepository.delete(productImageId);
     }
 
-
-//    public ProductImage getById(Integer productImageId)
-//    {
-//        return productImageRepository.getById(productImageId);
-//    }
 }

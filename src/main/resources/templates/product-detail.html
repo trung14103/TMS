@@ -438,7 +438,7 @@
 
                                             <!--end sub review-->
                                             <div th:id="${rate.getId()+'_reply'}" hidden="true">
-                                                <div sec:authorize="isAnonymous()">
+                                                <div th:if="${!vm.getLayoutHeaderAdminVM().isUser()}">
                                                     <div class="w-full">
                                                         <h5 class="mtext-108 cl2 p-b-7">
                                                             <a href="/user/sign-in">Log in</a> to comment.
@@ -446,7 +446,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div sec:authorize="isAuthenticated()">
+                                                <div th:if="${vm.getLayoutHeaderAdminVM().isUser()}">
                                                     <!-- Add review -->
                                                     <form class="w-full">
 
@@ -481,7 +481,7 @@
                                     </div>
 
 
-                                    <div sec:authorize="isAnonymous()">
+                                    <div th:if="${!vm.getLayoutHeaderAdminVM().isUser()}">
                                         <div class="w-full">
                                             <h5 class="mtext-108 cl2 p-b-7">
                                                 <a href="/user/sign-in">Log in</a> to comment.
@@ -489,7 +489,7 @@
                                         </div>
                                     </div>
 
-                                    <div sec:authorize="isAuthenticated()">
+                                    <div th:if="${vm.getLayoutHeaderAdminVM().isUser()}">
                                         <!-- Add review -->
                                         <form class="w-full">
                                             <h5 class="mtext-108 cl2 p-b-7">

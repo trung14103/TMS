@@ -20,4 +20,6 @@ public interface FavouriteRepository extends JpaRepository<Favourite, Integer>{
     List<Product> getProductFavouriteByGuid(@Param("guid") String guid);
 
 
+
+
 }

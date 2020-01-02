@@ -33,7 +33,7 @@ public class ContactApiController {
             obj.setImportant(0);
             obj.setSent(0);
             messageService.update(obj);
-            result.setMessage("Chúng tôi sẽ liên lạc với bạn trong thời gian ngắn nhất!");
+            result.setMessage("We wil contact you as soon as possible!");
             result.setSuccess(true);
             return result;
         }catch (Exception e){

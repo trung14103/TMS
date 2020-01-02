@@ -7,7 +7,7 @@ $(document).ready(function() {
             reader.onload = function(e) {
                 $('.user-avatar').attr('src', e.target.result);
                 console.log('path: ',e.target.result);
-            }
+            };
             reader.readAsDataURL(input.files[0]);
         }
     }

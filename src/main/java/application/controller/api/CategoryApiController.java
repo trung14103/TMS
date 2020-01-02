@@ -19,7 +19,7 @@ public class CategoryApiController {
     @Autowired
     private CategoryService categoryService;
 
-    @RequestMapping(value="/detail", params = {"categoryId"}) //params có/không => tùy
+    @RequestMapping(value="/detail", params = {"categoryId"})
     public @ResponseBody CategoryVM getSupplyInfor (@RequestParam(value = "categoryId") int categoryId){
         Category category = categoryService.findOne(categoryId);
         if(category==null)
@@ -33,7 +33,7 @@ public class CategoryApiController {
         return CategoryVM;
     }
 
-    @PostMapping(value="/delete/{categoryId}") //params có/không => tùy
+    @PostMapping(value="/delete/{categoryId}")
     public @ResponseBody BaseApiResult delete (@PathVariable int categoryId){
         BaseApiResult result= new BaseApiResult();
         try {

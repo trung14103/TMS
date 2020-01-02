@@ -67,7 +67,7 @@ public class SupplyApiController {
 //    }
 
     @PostMapping("/update/{supplyId}")
-    public BaseApiResult update (@PathVariable int supplyId,
+    public BaseApiResult updateSupply(@PathVariable int supplyId,
                                  @RequestBody SupplyDTO dto){
         BaseApiResult result = new BaseApiResult();
         try{
@@ -87,7 +87,7 @@ public class SupplyApiController {
     }
 
     @PostMapping(value = "/create")
-    public BaseApiResult createProduct(@RequestBody SupplyDTO dto){
+    public BaseApiResult createSupply(@RequestBody SupplyDTO dto){
         DataApiResult result = new DataApiResult();
 
         try {

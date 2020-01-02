@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface RoleRepository extends JpaRepository<Role, Integer> {
 
     @Query(value = "select r.* " +
@@ -13,4 +15,7 @@ public interface RoleRepository extends JpaRepository<Role, Integer> {
             "inner join dbo_role r on(r.role_id=ur.role_id) " +
             "where ur.user_id=:id", nativeQuery = true)
     Role getRoleByUser(@Param("id") Integer userId);
+
+    @Query(value = "select * from dbo_role", nativeQuery = true)
+    List<Role> findAll();
 }

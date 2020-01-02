@@ -1,6 +1,7 @@
 package application.data.model;
 
 
+import application.data.service.ProductService;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;

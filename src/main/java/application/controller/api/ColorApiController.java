@@ -17,7 +17,7 @@ public class ColorApiController {
     @Autowired
     private ColorService colorService;
 
-    @RequestMapping(value="/detail", params = {"colorId"}) //params có/không => tùy
+    @RequestMapping(value="/detail", params = {"colorId"})
     public @ResponseBody ColorVM getcolorInfor (@RequestParam(value = "colorId") int colorId){
         Color color = colorService.findOne(colorId);
         if(color==null)
@@ -31,7 +31,7 @@ public class ColorApiController {
         return colorVM;
     }
 
-    @PostMapping(value="/delete/{colorId}") //params có/không => tùy
+    @PostMapping(value="/delete/{colorId}")
     public @ResponseBody BaseApiResult delete (@PathVariable int colorId){
         BaseApiResult result= new BaseApiResult();
         try {

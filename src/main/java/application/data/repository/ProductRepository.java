@@ -40,12 +40,6 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
             "limit 20;", nativeQuery = true)
     List<Product> getHotProduct();
 
-//
-//    @Query(value = "select p.* from dbo_product p " +
-//            " inner join dbo_product_entity pe on ( p.product_id=pe.product_id) " +
-//            " where p.category_id =:categoryId and p.supply_id=:supplyId and pe.color_id=:colorId " +
-//            " and pe.size_id=:sizeId and upper(:productName) like concat('%',UPPER(p.name),'%')", nativeQuery = true)
-
     @Query("SELECT distinct p FROM dbo_product p " +
             "LEFT  JOIN p.productEntityList pe " +
             "WHERE (:categoryId IS NULL OR (p.categoryId = :categoryId)) " +

@@ -17,4 +17,7 @@ public interface CartRepository extends JpaRepository<Cart,Integer> {
             "ORDER BY c.cart_id DESC LIMIT 1",nativeQuery = true)
     Cart findByUserName(@Param("userName") String userName);
 
+    @Query(value = "select * from dbo_cart where cart_id=:cartId", nativeQuery = true)
+    Cart findOne(@Param("cartId") Integer cartId);
+
 }

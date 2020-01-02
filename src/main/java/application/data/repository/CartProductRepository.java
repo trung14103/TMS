@@ -13,4 +13,6 @@ public interface CartProductRepository extends JpaRepository<CartProduct,Integer
             "ORDER BY cp.cart_product_id DESC LIMIT 1",nativeQuery = true)
     CartProduct findFirstCartProductByCartIdAndProductEntityId(@Param("cartId") Integer cartId, @Param("productEntityId") Integer productEntityId);
 
+    @Query(value = "select * from dbo_cart_product where cart_product_id=:cartProductId", nativeQuery = true)
+    CartProduct findOne(@Param("cartProductId") Integer cartProductId);
 }

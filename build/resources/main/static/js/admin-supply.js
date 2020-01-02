@@ -4,14 +4,14 @@ $(document).ready(function () {
         var supplyId = $(this).data("supply");
         console.log(supplyId);
         swal({
-            title: 'Bạn có chắc chắn muốn xóa nhà sản xuất?',
-            text: "Bạn sẽ không có khả năng khôi phục!",
+            title: 'Do you want to delete this supplier?',
+            text: "You can not restore this after deleting!",
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Xóa',
-            cancelButtonText:'Hủy'
+            confirmButtonText: 'Delete',
+            cancelButtonText:'Cancel'
         }).then(function(result)  {
             if (result.value) {
 
@@ -22,8 +22,8 @@ $(document).ready(function () {
                     if(res.data.success) {
                         swal(
                             {
-                                title:'Thành công',
-                                text:'Xóa thành công',
+                                title:'Success',
+                                text:'Delete Successfully',
                                 type:'success',
                                 showCancelButton: false,
                                 timer:1500
@@ -33,7 +33,7 @@ $(document).ready(function () {
                         });
                     } else {
                         swal(
-                            'Lỗi',
+                            'Error',
                             res.data.message,
                             'error'
                         );
@@ -41,8 +41,8 @@ $(document).ready(function () {
                 }, function(err){
                     NProgress.done();
                     swal(
-                        'Lỗi',
-                        'Lỗi ghi dữ liệu',
+                        'Error',
+                        'Error Writing Data',
                         'error'
                     );
                 });
@@ -101,7 +101,7 @@ $(document).ready(function () {
             if(res.data.success) {
                 swal(
                     {
-                        title:'Thành công',
+                        title:'Success',
                         text:res.data.message,
                         type:'success',
                         showCancelButton: false,
@@ -127,7 +127,5 @@ $(document).ready(function () {
         })
 
     });
-
-
 
 });

@@ -40,18 +40,6 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public List<User> getListAllUsers() {
-        try {
-            return userRepository.findAll();
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.error(e.getMessage());
-            return new ArrayList<>();
-        }
-    }
-    public void addNewUser(User user) {
-        userRepository.save(user);
-    }
 
     public boolean updateUser(User user) {
         try {

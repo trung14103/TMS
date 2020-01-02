@@ -3,7 +3,6 @@ package application.data.service;
 import application.data.model.DeliveryStatus;
 import application.data.repository.DeliveryStatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,8 +20,5 @@ public class DeliveryStatusService {
         return deliveryStatusRepository.findAll();
     }
 
-//    public List<DeliveryStatus> getByOrderId(@Param("orderId") Integer orderId){
-//        return deliveryStatusRepository.getByOrderId(orderId);
-//    }
 
 }
