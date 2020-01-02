@@ -70,7 +70,7 @@
                            th:href="${'/product/'+cartProduct.getProductId()}" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
                         </a>
 
-                        <span th:text="${cartProduct.getAmount()+'x'+cartProduct.getPrice()+' đ'}" class="header-cart-item-info">
+                        <span th:text="${cartProduct.getAmount()+'x'+cartProduct.getPrice()+' VND'}" class="header-cart-item-info">
 							</span>
                     </div>
                 </li>
@@ -105,7 +105,7 @@
 
                         <div class="layer-slick1 animated visible-false" data-appear="fadeInUp" data-delay="800">
                             <h2 class="ltext-201 cl2 p-t-19 p-b-43 respon1">
-                                Discount upto 50%
+                                Discount up to 50%
                             </h2>
                         </div>
 
@@ -236,7 +236,7 @@
 
                         <div class="block1-txt-child2 p-b-4 trans-05">
                             <div class="block1-link stext-101 cl0 trans-09">
-                                Mua ngay
+                                Buy now
                             </div>
                         </div>
                     </a>
@@ -252,26 +252,26 @@
     <div class="container">
         <div class="p-b-10">
             <h3 class="ltext-103 cl5">
-                Cửa hàng
+                Store
             </h3>
         </div>
 
         <div class="flex-w flex-sb-m p-b-52">
             <div class="flex-w flex-l-m filter-tope-group m-tb-10">
                 <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1 my-fonts my-font" data-filter="*">
-                    Tất cả sản phẩm
+                    All Products
                 </button>
 
                 <button th:each="category : ${vm.getCategoryVMList()}" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 my-font" th:attr="data-filter='.'+${category.getId()}"  th:text="${category.getName()}">
-                    Giày thể thao
+                    Cute bears
                 </button>
 
                 <!--<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 my-font" data-filter=".7">-->
-                    <!--Giày da-->
+                    <!--Toy Cars-->
                 <!--</button>-->
 
                 <!--<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 my-font" data-filter=".8">-->
-                    <!--Giày nghệ thuật-->
+                    <!--...-->
                 <!--</button>-->
 
 
@@ -281,13 +281,13 @@
                 <!--<div class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 js-show-filter my-font">-->
                     <!--<i class="icon-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-filter-list"></i>-->
                     <!--<i class="icon-close-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>-->
-                    <!--Lọc-->
+                    <!--Filter-->
                 <!--</div>-->
 
                 <!--<div class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4 js-show-search my-font">-->
                     <!--<i class="icon-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-search"></i>-->
                     <!--<i class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>-->
-                    <!--Tìm kiếm-->
+                    <!--Search-->
                 <!--</div>-->
             </div>
 
@@ -351,7 +351,7 @@
 
                     <!--<div class="filter-col3 p-r-15 p-b-27">-->
                         <!--<div class="mtext-102 cl2 p-b-15">-->
-                            <!--Màu sắc-->
+                            <!--Color-->
                         <!--</div>-->
 
                         <!--<ul th:each="color:${vm.getColorVMList()}" style="font-family: Arial, Helvetica, sans-serif">-->
@@ -382,7 +382,7 @@
                     <!--</div>-->
                     <!--<div class="filter-col4 p-b-27">-->
                         <!--<div class="mtext-102 cl2 p-b-15">-->
-                            <!--Hãng-->
+                            <!--Brand-->
                         <!--</div>-->
 
                         <!--<ul th:each="supply:${vm.getSupplyVMList()}" style="font-family: Arial, Helvetica, sans-serif">-->
@@ -405,7 +405,7 @@
                         <img th:src="${product.getMainImage()}" alt="IMG-PRODUCT">
 
                         <a href="#" data-toggle="modal" data-target="#myModal" th:attr="data-product=${product.getId()}" th:attrappend="data-target=${product.getId()}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                            Xem nhanh
+                            Quick View
                         </a>
                     </div>
 
@@ -419,7 +419,7 @@
 						    <i th:each="i: ${#numbers.sequence(1,5)}" th:if="${product.getRateAvg()>= i}" class="zmdi zmdi-star"></i>
 					        <i th:each="i: ${#numbers.sequence(1,5)}" th:unless="${product.getRateAvg()>= i}" class="item-rating pointer zmdi zmdi-star-outline"></i>
                         </span>
-                            <span class="stext-105 cl3" th:text="${product.getPrice() +' đ'}">
+                            <span class="stext-105 cl3" th:text="${product.getPrice() +' VND'}">
 									$16.64
 								</span>
                         </div>
@@ -450,14 +450,11 @@
         <!-- Load more -->
         <div class="flex-c-m flex-w w-full p-t-45">
             <a href="/store" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
-                Xem thêm
+                Load more
             </a>
         </div>
     </div>
 </section>
-
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.47252750529!2d105.7831250146993!3d21.05378138598479!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab2b83d40fb5%3A0x54e61655b653f64d!2zTmfDtSAxOTUgLSBUcuG6p24gQ3VuZywgQ-G7lSBOaHXhur8gMSwgQuG6r2MgVOG7qyBMacOqbSwgSMOgIE7hu5lpLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1554138014805!5m2!1svi!2s" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
-
 
 <!-- footer -->
 <footer id="footer" class="footer" th:replace="fragments/footer:: footer"></footer>
@@ -596,7 +593,7 @@
                                     <!--<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 btnAddToCart"-->
                                             <!--th:attr="data-product=${product.getId()}">-->
                                         <!--&lt;!&ndash;js-addcart-detail&ndash;&gt;-->
-                                        <!--Thêm vào giỏ-->
+                                        <!--Add to cart-->
                                     <!--</button>-->
                                 <!--</div>-->
                             <!--</div>-->

@@ -60,7 +60,7 @@ $(document).ready(function () {
             success: function (data) {
                 $("#productEntity").empty();
                 var list=data.data;
-                console.log("data ahihi: ",list);
+                console.log("data : ",list);
                 for(var i=0; i<list.length;i++){
                     var row=$("<tr style=\"height: 20px\"></tr>")
                     var row=$("<tr style=\"height: 20px\"></tr>")

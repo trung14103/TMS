@@ -1,5 +1,12 @@
 $(document).ready(function () {
 
+    $("#exampleModalLong").on("hide.bs.modal", function () {
+        $("#input-id").val('');
+        $("#input-name").val('');
+        $("#input-desc").val('');
+    });
+
+
     $(".del-size").on("click", function () {
         var sizeId = $(this).data("size");
         var linkPost="/api/size/delete/"+sizeId;
@@ -10,8 +17,8 @@ $(document).ready(function () {
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Xóa',
-            cancelButtonText:'Hủy'
+            confirmButtonText: 'Delete',
+            cancelButtonText:'Cancel'
         }).then(function(result)  {
             if (result.value) {
                 NProgress.start();
@@ -21,7 +28,7 @@ $(document).ready(function () {
                         swal(
                             {
                                 title:'Success',
-                                text:'Delete Successfully',
+                                text:'Deleted Successfully',
                                 type:'success',
                                 showCancelButton: false,
                                 timer:1500
@@ -103,8 +110,8 @@ $(document).ready(function () {
             if(res.data.success) {
                 swal(
                     {
-                        title:'Thành công',
-                        text:'Cập nhật thành công',
+                        title:'Success',
+                        text:'Updated Successfully',
                         type:'success',
                         showCancelButton: false,
                         timer:1500

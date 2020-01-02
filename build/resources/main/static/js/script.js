@@ -127,7 +127,7 @@ function loadListImage(productId) {
                     div.append(image);
                     $("#block-image").append(div);
 
-                    // log.show("Cập nhật thành công", true);
+                    // log.show("Successfully Updated", true);
 
                 }
             }
@@ -206,7 +206,7 @@ $('.changeRole').on('change',function () {
         success: function (data) {
             if (data.success === true) {
                 swal({
-                    title: 'Thành công',
+                    title: 'Success',
                     text: data.message,
                     type: 'success',
                     timer: 1500
@@ -214,7 +214,7 @@ $('.changeRole').on('change',function () {
             }
             else {
                 swal({
-                    title: 'Thất bại',
+                    title: 'Fail',
                     text: data.message,
                     type: 'error',
                     timer: 1500
@@ -246,7 +246,7 @@ $('.changeStatus').on('change',function () {
         success: function (data) {
             if (data.success === true) {
                 swal({
-                    title: 'Thành công',
+                    title: 'Success',
                     text: data.message,
                     type: 'success',
                     timer: 1500
@@ -254,7 +254,7 @@ $('.changeStatus').on('change',function () {
             }
             else {
                 swal({
-                    title: 'Thất bại',
+                    title: 'Fail',
                     text: data.message,
                     type: 'error',
                     timer: 1500
@@ -276,8 +276,8 @@ $('.delUser').on('click', function(){
     data.id = id;
     console.log("data: ", data);
     swal({
-        title: 'Xóa tài khoản?',
-        text: "Bạn sẽ không có khả năng khôi phục!",
+        title: 'Delete User?',
+        text: "You can not restore this!",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -293,7 +293,7 @@ $('.delUser').on('click', function(){
                 if(res.data.success) {
                     swal(
                         {
-                            title:'Thành công',
+                            title:'Success',
                             text:res.data.message,
                             type:'success',
                             showCancelButton: false,
@@ -304,7 +304,7 @@ $('.delUser').on('click', function(){
                     });
                 } else {
                     swal(
-                        'Thất bại',
+                        'Fail',
                         res.data.message,
                         'error'
                     );
@@ -312,8 +312,8 @@ $('.delUser').on('click', function(){
             }, function(err){
                 NProgress.done();
                 swal(
-                    'Thất bại',
-                    'Xảy ra lỗi',
+                    'Fail',
+                    'An Error Occurred',
                     'error'
                 );
             });

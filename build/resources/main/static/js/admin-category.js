@@ -1,4 +1,9 @@
 $(document).ready(function () {
+    $("#exampleModalLong").on("hide.bs.modal", function () {
+        $("#input-category-id").val('');
+        $("#input-category-name").val('');
+        $("#input-category-desc").val('');
+    });
 
     $(".del-category").on("click", function () {
         var categoryId = $(this).data("category");
@@ -64,7 +69,6 @@ $(document).ready(function () {
                 categoryId: categoryId
             },
             success: function (data) {
-                console.log(data);
                 $("#input-category-id").val(data.id);
                 $("#input-category-name").val(data.name);
                 $("#input-category-desc").val(data.shortDesc);
@@ -104,7 +108,7 @@ $(document).ready(function () {
                 swal(
                     {
                         title:'Success',
-                        text:'Successfully Write Data',
+                        text:'Successfully Saved Data',
                         type:'success',
                         showCancelButton: false,
                         timer:1500

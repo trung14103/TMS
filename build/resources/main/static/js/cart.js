@@ -36,8 +36,8 @@ $(document).ready(function () {
         var id=$(this).data('id');
 
         swal({
-            title: 'Xóa khỏi giỏ hàng?',
-            text: "Bạn sẽ không có khả năng khôi phục!",
+            title: 'Delete from cart?',
+            text: "You can not restore this!",
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -53,7 +53,7 @@ $(document).ready(function () {
                     if(res.data.success) {
                         swal(
                             {
-                                title:'Thành công',
+                                title:'Success',
                                 text:res.data.message,
                                 type:'success',
                                 showCancelButton: false,
@@ -64,7 +64,7 @@ $(document).ready(function () {
                         });
                     } else {
                         swal(
-                            'Thất bại',
+                            'Fail',
                             res.data.message,
                             'error'
                         );
@@ -72,8 +72,8 @@ $(document).ready(function () {
                 }, function(err){
                     NProgress.done();
                     swal(
-                        'Thất bại',
-                        'Xảy ra lỗi',
+                        'Fail',
+                        'An Error Occurred',
                         'error'
                     );
                 });

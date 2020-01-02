@@ -71,16 +71,15 @@
                             White Shirt Pleat
                         </a>
 
-                        <span th:text="${cartProduct.getAmount()+'x'+cartProduct.getPrice()+' đ'}"
+                        <span th:text="${cartProduct.getAmount()+'x'+cartProduct.getPrice()+' $'}"
                               class="header-cart-item-info">
-								1 x $19.00
 							</span>
                     </div>
                 </li>
             </ul>
 
             <div class="w-full">
-                <div th:text="${'Tổng tiền: '+ vm.getTotalPrice()+' VND'}" class="header-cart-total w-full p-tb-40">
+                <div th:text="${'Total: '+ vm.getTotalPrice()+' $'}" class="header-cart-total w-full p-tb-40">
                     Total: $75.00
                 </div>
 
@@ -91,7 +90,7 @@
                     </a>
 
                     <!--<a href="/order/checkout" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">-->
-                    <!--Thanh toán-->
+                    <!--Checkout-->
                     <!--</a>-->
                 </div>
             </div>
@@ -171,7 +170,7 @@
 					    <i th:each="i: ${#numbers.sequence(1,5)}" th:unless="${vm.getRateAvg()>= i}"
                            class="item-rating pointer zmdi zmdi-star-outline"></i>
                     </span> <br>
-                    <span class="mtext-106 cl2" th:text="${vm.getProductVM().getPrice()+' đ'}">
+                    <span class="mtext-106 cl2" th:text="${vm.getProductVM().getPrice()+' VND'}">
 							Price
 						</span>
 
@@ -277,13 +276,6 @@
             <div class="tab01">
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
-                    <!--<li class="nav-item p-b-10">-->
-                    <!--<a class="nav-link active" data-toggle="tab" href="#description" role="tab">Description</a>-->
-                    <!--</li>-->
-
-                    <!--<li class="nav-item p-b-10">-->
-                    <!--<a class="nav-link" data-toggle="tab" href="#information" role="tab">Additional information</a>-->
-                    <!--</li>-->
 
                     <li class="nav-item p-b-10">
                         <a class="nav-link active" data-toggle="tab" href="#reviews" role="tab"
@@ -291,82 +283,6 @@
                     </li>
                 </ul>
 
-                <!-- Tab panes -->
-                <div class="tab-content p-t-43">
-                    <!-- - -->
-                    <div class="tab-pane fade show " id="description" role="tabpanel">
-                        <div class="how-pos2 p-lr-15-md">
-                            <p class="stext-102 cl6">
-                                Aenean sit amet gravida nisi. Nam fermentum est felis, quis feugiat nunc fringilla sit
-                                amet. Ut in blandit ipsum. Quisque luctus dui at ante aliquet, in hendrerit lectus
-                                interdum. Morbi elementum sapien rhoncus pretium maximus. Nulla lectus enim, cursus et
-                                elementum sed, sodales vitae eros. Ut ex quam, porta consequat interdum in, faucibus eu
-                                velit. Quisque rhoncus ex ac libero varius molestie. Aenean tempor sit amet orci nec
-                                iaculis. Cras sit amet nulla libero. Curabitur dignissim, nunc nec laoreet consequat,
-                                purus nunc porta lacus, vel efficitur tellus augue in ipsum. Cras in arcu sed metus
-                                rutrum iaculis. Nulla non tempor erat. Duis in egestas nunc.
-                            </p>
-                        </div>
-                    </div>
-
-<!--                    &lt;!&ndash; - &ndash;&gt;-->
-<!--                    <div class="tab-pane fade" id="information" role="tabpanel">-->
-<!--                        <div class="row">-->
-<!--                            <div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">-->
-<!--                                <ul class="p-lr-28 p-lr-15-sm">-->
-<!--                                    <li class="flex-w flex-t p-b-7">-->
-<!--											<span class="stext-102 cl3 size-205">-->
-<!--												Weight-->
-<!--											</span>-->
-
-<!--                                        <span class="stext-102 cl6 size-206">-->
-<!--												0.79 kg-->
-<!--											</span>-->
-<!--                                    </li>-->
-
-<!--                                    <li class="flex-w flex-t p-b-7">-->
-<!--											<span class="stext-102 cl3 size-205">-->
-<!--												Dimensions-->
-<!--											</span>-->
-
-<!--                                        <span class="stext-102 cl6 size-206">-->
-<!--												110 x 33 x 100 cm-->
-<!--											</span>-->
-<!--                                    </li>-->
-
-<!--                                    <li class="flex-w flex-t p-b-7">-->
-<!--											<span class="stext-102 cl3 size-205">-->
-<!--												Materials-->
-<!--											</span>-->
-
-<!--                                        <span class="stext-102 cl6 size-206">-->
-<!--												60% cotton-->
-<!--											</span>-->
-<!--                                    </li>-->
-
-<!--                                    <li class="flex-w flex-t p-b-7">-->
-<!--											<span class="stext-102 cl3 size-205">-->
-<!--												Color-->
-<!--											</span>-->
-
-<!--                                        <span class="stext-102 cl6 size-206">-->
-<!--												Black, Blue, Grey, Green, Red, White-->
-<!--											</span>-->
-<!--                                    </li>-->
-
-<!--                                    <li class="flex-w flex-t p-b-7">-->
-<!--											<span class="stext-102 cl3 size-205">-->
-<!--												Size-->
-<!--											</span>-->
-
-<!--                                        <span class="stext-102 cl6 size-206">-->
-<!--												XL, L, M, S-->
-<!--											</span>-->
-<!--                                    </li>-->
-<!--                                </ul>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
 
                     <!-- - -->
                     <div class="tab-pane fade show active" id="reviews" role="tabpanel">
@@ -382,7 +298,6 @@
                                         <div class="size-207">
                                             <div class="flex-w flex-sb-m">
 													<span th:text="${rate.getUserName()}" class="mtext-107 cl2 p-r-20">
-														Ariana Grande
 													</span>
 
                                                 <span class="fs-18 cl11">
@@ -399,16 +314,13 @@
                                             <div class="flex-w flex-sb-m p-b-17">
                                                 <i th:text="${rate.getCreatedDate()}" style="font-size: 13px"
                                                    class="mtext-107 cl2 p-r-20">
-                                                    Ariana Grande
                                                 </i>
 
                                             </div>
                                             <p th:text="${rate.getComment()}" class="stext-102 cl6">
-                                                Quod autem in homine praestantissimum atque optimum est, id deseruit.
-                                                Apud ceteros autem philosophos
                                             </p>
                                             <span style="color: #0d6aad" class="pointer reply"
-                                                  th:attr="data-rate=${rate.getId()}">Trả lời</span>
+                                                  th:attr="data-rate=${rate.getId()}">Reply</span>
                                             <!--sub review-->
                                             <div th:each="sub:${rate.getRateVMList()}" class="flex-w flex-t p-b-30">
                                                 <div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
@@ -418,19 +330,15 @@
                                                 <div class="size-207">
                                                     <div class="flex-w flex-sb-m">
 													<span th:text="${sub.getUserName()}" class="mtext-107 cl2 p-r-20">
-														Ariana Grande
 													</span>
                                                     </div>
                                                     <div class="flex-w flex-sb-m p-b-17">
                                                         <i th:text="${rate.getCreatedDate()}" style="font-size: 13px"
                                                            class="mtext-107 cl2 p-r-20">
-                                                            Ariana Grande
                                                         </i>
 
                                                     </div>
                                                     <p th:text="${sub.getComment()}" class="stext-102 cl6">
-                                                        Quod autem in homine praestantissimum atque optimum est, id
-                                                        deseruit. Apud ceteros autem philosophos
                                                     </p>
 
                                                 </div>
@@ -438,7 +346,7 @@
 
                                             <!--end sub review-->
                                             <div th:id="${rate.getId()+'_reply'}" hidden="true">
-                                                <div sec:authorize="isAnonymous()">
+                                                <div th:if="!${vm.getLayoutHeaderAdminVM().isUser()}">
                                                     <div class="w-full">
                                                         <h5 class="mtext-108 cl2 p-b-7">
                                                             <a href="/user/sign-in">Log in</a> to comment.
@@ -446,7 +354,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div sec:authorize="isAuthenticated()">
+                                                <div th:if="${vm.getLayoutHeaderAdminVM().isUser()}">
                                                     <!-- Add review -->
                                                     <form class="w-full">
 
@@ -481,7 +389,7 @@
                                     </div>
 
 
-                                    <div sec:authorize="isAnonymous()">
+                                    <div th:if="${!vm.getLayoutHeaderAdminVM().isUser()}">
                                         <div class="w-full">
                                             <h5 class="mtext-108 cl2 p-b-7">
                                                 <a href="/user/sign-in">Log in</a> to comment.
@@ -489,7 +397,7 @@
                                         </div>
                                     </div>
 
-                                    <div sec:authorize="isAuthenticated()">
+                                    <div th:if="${vm.getLayoutHeaderAdminVM().isUser()}">
                                         <!-- Add review -->
                                         <form class="w-full">
                                             <h5 class="mtext-108 cl2 p-b-7">
@@ -604,7 +512,7 @@
 					        <i th:each="i: ${#numbers.sequence(1,5)}" th:unless="${product.getRateAvg()>= i}"
                                class="item-rating pointer zmdi zmdi-star-outline"></i>
                         </span>
-                                <span th:text="${product.getPrice()+' VND'}" class="stext-105 cl3">
+                                <span th:text="${product.getPrice()+' $'}" class="stext-105 cl3">
 										$16.64
 									</span>
                             </div>

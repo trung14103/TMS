@@ -23,7 +23,7 @@ $(document).ready(function (){
                 if(res.data.success) {
                     swal(
                         {
-                            title:'Thành công',
+                            title:'Success',
                             text:res.data.message,
                             type:'success',
                             showCancelButton: false,
@@ -35,7 +35,7 @@ $(document).ready(function (){
                     $(this).off('click');
                 } else {
                     swal(
-                        'Xảy ra lỗi',
+                        'An Error Occurred',
                         res.data.message,
                         'error'
                     );

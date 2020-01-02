@@ -23,7 +23,7 @@ $(document).ready(function () {
                         swal(
                             {
                                 title:'Success',
-                                text:'Delete Successfully',
+                                text:'Deleted Successfully',
                                 type:'success',
                                 showCancelButton: false,
                                 timer:1500
@@ -42,7 +42,7 @@ $(document).ready(function () {
                     NProgress.done();
                     swal(
                         'Error',
-                        'Error Writing Data',
+                        'Error Saving Data',
                         'error'
                     );
                 });

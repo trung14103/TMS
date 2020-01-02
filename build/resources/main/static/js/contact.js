@@ -14,7 +14,7 @@ $(document).ready(function () {
            success: function (data) {
                if (data.success === true) {
                    swal({
-                       title:'Thành công',
+                       title:'Success',
                        text:data.message,
                        type:'success',
                        showCancelButton: false,
@@ -25,7 +25,7 @@ $(document).ready(function () {
                    });
                } else{
                    swal(
-                       'Xảy ra lỗi',
+                       'Fail',
                        data.message,
                        'error'
                    );

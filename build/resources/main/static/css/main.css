@@ -1,8 +1,7 @@
 /*------------------------------------------------------------------
 Project:  
 Version:  
-Last change:  
-Assigned to:  Le Xuan Bach
+Last change:
 Primary use:  Company
 -------------------------------------------------------------------*/
 /*------------------------------------------------------------------
@@ -323,7 +322,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
   display: -ms-flexbox;
   display: flex;
   align-items: center;
-  height: 65%;
+  height: 100%;
   margin-right: 55px;
 }
 

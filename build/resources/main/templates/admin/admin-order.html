@@ -133,7 +133,7 @@
                                 <td colspan="2" th:text="${order.getCustomerName()}"></td>
                                 <td colspan="2" th:text="${order.getPhoneNumber()}"></td>
                                 <td colspan="2" th:text="${order.getCreatedDate()}" style="width: 100px"></td>
-                                <td colspan="2" style="text-align: right" th:text="${order.getPrice()}+' đ'"></td>
+                                <td colspan="2" style="text-align: right" th:text="${order.getPrice()}+' VND'"></td>
                                 <td colspan="2" style="width: 100px" >
                                     <!--th:text="${order.getDeliveryStatus()}"-->
                                     <select class="form-control changeStatus" th:attr="data-id=${order.getId()}" id="input-product-promotion" placeholder="Choose " >
