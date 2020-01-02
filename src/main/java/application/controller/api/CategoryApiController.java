@@ -34,7 +34,6 @@ public class CategoryApiController {
     }
 
     @PostMapping(value="/delete/{categoryId}")
->>>>>>> f58b9e10b99808b54eca028266e1c5fac369c94f
     public @ResponseBody BaseApiResult delete (@PathVariable int categoryId){
         BaseApiResult result= new BaseApiResult();
         try {

@@ -122,16 +122,16 @@ public class CartProductApiController {
         BaseApiResult result = new BaseApiResult();
 
         try {
-            if(cartProductService.deleteCartProduct(cartProductId) == true) {
-                result.setMessage("Successfully Deleted");
             if(cartProductService.deleteCartProduct(cartProductId)) {
+                result.setMessage("Deleted Successfully");
                 result.setSuccess(true);
                 return result;
             }
         } catch (Exception e) {
+            //logger.error(e.getMessage());
         }
         result.setSuccess(false);
-        result.setMessage("An Error Occurred!");
+        result.setMessage("An Error Occured!");
         return result;
     }
 }

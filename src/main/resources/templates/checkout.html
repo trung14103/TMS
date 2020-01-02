@@ -95,7 +95,7 @@
                             White Shirt Pleat
                         </a>
 
-                        <span th:text="${cartProduct.getAmount()+'x'+cartProduct.getPrice()+' đ'}" class="header-cart-item-info">
+                        <span th:text="${cartProduct.getAmount()+'x'+cartProduct.getPrice()+' VND'}" class="header-cart-item-info">
 								1 x $19.00
 							</span>
                     </div>
@@ -446,7 +446,7 @@
         order.email=$("#input-email").val();
         order.phoneNumber=$("#input-phone-number").val();
         order.address=$("#input-address").val();
-        console.log("ordẻer: ", order);
+        console.log("order: ", order);
         NProgress.start();
 
         var linkPost = "/order/checkout";

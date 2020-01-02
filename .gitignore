@@ -4,3 +4,6 @@
 .gradle/4.8/fileHashes/fileHashes.lock
 .gradle/vcsWorkingDirs/gc.properties
 *.bin
+/.idea/
+/.gradle/
+/build/

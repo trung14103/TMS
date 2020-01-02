@@ -282,8 +282,8 @@ $('.delUser').on('click', function(){
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Xóa',
-        cancelButtonText:'Hủy'
+        confirmButtonText: 'Delete',
+        cancelButtonText:'Cancel'
     }).then(function(result)  {
         if (result.value) {
             NProgress.start();
@@ -326,14 +326,14 @@ $('.delUser').on('click', function(){
 $('.btnCancel').on('click',function () {
     var id = $(this).data('id');
     swal({
-        title: 'Bạn có chắc chắn muốn xóa đơn hàng?',
-        text: "Bạn sẽ không có khả năng khôi phục!",
+        title: 'Delete Order?',
+        text: "You can not restore this!",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Xóa',
-        cancelButtonText:'Hủy'
+        confirmButtonText: 'Delete',
+        cancelButtonText:'Cancel'
     }).then(function(result)  {
         if (result.value) {
 
@@ -345,7 +345,7 @@ $('.btnCancel').on('click',function () {
                 if(res.data.success) {
                     swal(
                         {
-                            title:'Thành công',
+                            title:'Successfully',
                             text:res.data.message,
                             type:'success',
                             showCancelButton: false,
@@ -356,7 +356,7 @@ $('.btnCancel').on('click',function () {
                     });
                 } else {
                     swal(
-                        'Thất bại',
+                        'Fail',
                         res.data.message,
                         'error'
                     );
@@ -364,8 +364,8 @@ $('.btnCancel').on('click',function () {
             }, function(err){
                 NProgress.done();
                 swal(
-                    'Thất bại',
-                    'Xảy ra lỗi',
+                    'Fail',
+                    'An Error Occurred',
                     'error'
                 );
             });
@@ -419,8 +419,8 @@ $('.btnAddToCart').on('click', function () {
 
     if(sizeId=="0" || sizeId==""){
         swal(
-            'Thất bại',
-            'Chưa chọn size!',
+            'Fail',
+            'Not choose size!',
             'error'
         )
         return;
@@ -430,8 +430,8 @@ $('.btnAddToCart').on('click', function () {
     var colorId =$(selectColorId).children("option:selected").val();
     if(colorId=="0" || colorId==""){
         swal(
-            'Thất bại',
-            'Chưa chọn màu!',
+            'Fail',
+            'Not choose color!',
             'error'
         )
         return;
@@ -441,8 +441,8 @@ $('.btnAddToCart').on('click', function () {
     var data={};
     if(amount>state2.amount){
         swal(
-            'Thất bại',
-            'Không đủ số lượng!',
+            'Fail',
+            'Not Enough Amount!',
             'error'
         )
         return;
@@ -460,7 +460,7 @@ $('.btnAddToCart').on('click', function () {
         if(res.data.success) {
             swal(
                 {
-                    title:'Thành công',
+                    title:'Successfully',
                     text:res.data.message,
                     type:'success',
                    // showCancelButton: false,
@@ -471,7 +471,7 @@ $('.btnAddToCart').on('click', function () {
             });
         } else {
             swal(
-                'Xảy ra lỗi',
+                'An Error Occurred',
                 res.data.message,
                 'error'
             );
