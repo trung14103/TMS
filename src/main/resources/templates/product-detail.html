@@ -170,9 +170,16 @@
 					    <i th:each="i: ${#numbers.sequence(1,5)}" th:unless="${vm.getRateAvg()>= i}"
                            class="item-rating pointer zmdi zmdi-star-outline"></i>
                     </span> <br>
-                    <span class="mtext-106 cl2" th:text="${vm.getProductVM().getPrice()+' VND'}">
+                    <span  class="mtext-106 cl2 price_span" th:text="${vm.getProductVM().getPrice()+' VND'}">
 							Price
+						</span> <br>
+                    <span  class="mtext-106 cl2 price_span" th:if="${vm.getProductVM().getPriceAfterSale() != 0}">
+							<text th:text="${vm.getProductVM().getPriceAfterSale()} + ' VND'" ></text>
+						</span> <br>
+                    <span  class="mtext-106 cl2 price_span" th:if="${vm.getProductVM().getPromotionDiscount() != 0}">
+                        <text th:text="'Discount: ' + ${vm.getProductVM().getPromotionDiscount()} + '%'" ></text>
 						</span>
+
 
                     <p class="stext-102 cl3 p-t-23" th:text="${vm.getProductVM().getShortDesc()}">
                         Descriptions.

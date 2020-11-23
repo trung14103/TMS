@@ -20,31 +20,37 @@ public class PromotionApiController {
     @Autowired
     private PromotionService promotionService;
 
-    @RequestMapping(value="/detail", params = {"promotionId"}) //params y/n
-    public @ResponseBody PromotionVM getPromotionInfor (@RequestParam(value = "promotionId") int promotionId){
-        Promotion promotion = promotionService.findOne(promotionId);
-        if(promotion==null)
+    @RequestMapping(value = "/detail", params = {"promotionId"}) //params y/n
+    public @ResponseBody
+    PromotionVM getPromotionInfor(@RequestParam(value = "promotionId") int promotionId) {
+        try {
+            Promotion promotion = promotionService.findOne(promotionId);
+            if (promotion == null)
+                return null;
+            PromotionVM promotionVM = new PromotionVM();
+            promotionVM.setId(promotion.getId());
+            promotionVM.setName(promotion.getName());
+            promotionVM.setShortDesc(promotion.getShortDesc());
+            promotionVM.setCreatedDate(promotion.getCreatedDate());
+            promotionVM.setDiscount(promotion.getDiscount());
+            promotionVM.setBeginDate(promotion.getBeginDate());
+            promotionVM.setEndDate(promotion.getEndDate());
+            return promotionVM;
+        } catch (Exception e) {
             return null;
-        PromotionVM promotionVM= new PromotionVM();
-        promotionVM.setId(promotion.getId());
-        promotionVM.setName(promotion.getName());
-        promotionVM.setShortDesc(promotion.getShortDesc());
-        promotionVM.setCreatedDate(promotion.getCreatedDate());
-        promotionVM.setDiscount(promotion.getDiscount());
-        promotionVM.setBeginDate(promotion.getBeginDate());
-        promotionVM.setEndDate(promotion.getEndDate());
-        return promotionVM;
+        }
     }
 
-    @PostMapping(value="/delete/{promotionId}") //params y/n
-    public @ResponseBody BaseApiResult delete (@PathVariable int promotionId){
-        BaseApiResult result= new BaseApiResult();
+    @PostMapping(value = "/delete/{promotionId}") //params y/n
+    public @ResponseBody
+    BaseApiResult delete(@PathVariable int promotionId) {
+        BaseApiResult result = new BaseApiResult();
         try {
             result.setSuccess(true);
             result.setMessage("Deleted promotion successfully");
             promotionService.delPromotion(promotionId);
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             result.setSuccess(false);
             result.setMessage(e.getMessage());
         }
@@ -53,7 +59,7 @@ public class PromotionApiController {
     }
 
     @PostMapping(value = "/create")
-    public DataApiResult createPromotion(@RequestBody PromotionDTO dto){
+    public DataApiResult createPromotion(@RequestBody PromotionDTO dto) {
         DataApiResult result = new DataApiResult();
 
         try {
@@ -76,10 +82,10 @@ public class PromotionApiController {
     }
 
     @PostMapping("/update/{promotionId}")
-    public BaseApiResult update (@PathVariable int promotionId,
-                                 @RequestBody PromotionDTO dto){
+    public BaseApiResult update(@PathVariable int promotionId,
+                                @RequestBody PromotionDTO dto) {
         BaseApiResult result = new BaseApiResult();
-        try{
+        try {
             Promotion promotion = promotionService.findOne(promotionId);
             promotion.setId(dto.getId());
             promotion.setName(dto.getName());

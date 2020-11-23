@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
     $('.date').datetimepicker({
         format: 'DD/MM/YYYY',
@@ -63,6 +64,7 @@ $(document).ready(function () {
     });
 
     $(".btn-save").on("click", function () {
+
         if($("#input-name").val() === "" || $("#input-desc").val() === "" ) {
             swal(
                 'Error',

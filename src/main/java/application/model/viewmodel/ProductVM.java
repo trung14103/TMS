@@ -14,6 +14,17 @@ public class    ProductVM {
     private List<ProductImageVM> productImageVMS;
     private String supplyName;
     private String promotionName;
+    private double promotionDiscount;
+
+    public double getPriceAfterSale() {
+        return priceAfterSale;
+    }
+
+    public void setPriceAfterSale(double priceAfterSale) {
+        this.priceAfterSale = priceAfterSale;
+    }
+
+    private double priceAfterSale;
     private int categoryId;
     private int rateAvg;
     private int favourite;
@@ -136,6 +147,14 @@ public class    ProductVM {
 
     public String getPrice() {
         return price;
+    }
+
+    public double getPromotionDiscount() {
+        return promotionDiscount;
+    }
+
+    public void setPromotionDiscount(double promotionDiscount) {
+        this.promotionDiscount = promotionDiscount;
     }
 
     public void setPrice(Double price) {

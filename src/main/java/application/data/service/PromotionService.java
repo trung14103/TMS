@@ -15,24 +15,28 @@ public class PromotionService {
     @Autowired
     private PromotionRepository promotionRepository;
 
-    public Promotion findOne(int promotionId){
+    public Promotion findOne(int promotionId) {
         return promotionRepository.findOne(promotionId);
     }
 
-    public List<Promotion> getAll(){
+    public List<Promotion> getAll() {
         return promotionRepository.findAll();
     }
 
-    public void addNewPromotion(Promotion promotion){
+    public void addNewPromotion(Promotion promotion) {
         promotionRepository.save(promotion);
     }
 
+    public void updateNewPromotion(int promotionId) {
+        promotionRepository.save(promotionRepository.findOne(promotionId));
+    }
+
     @Transactional
-    public void delPromotion(int promotionId){
+    public void delPromotion(int promotionId) {
         promotionRepository.delete(promotionId);
     }
 
-    public List<Promotion> getListSupplyByName(String promotionName){
+    public List<Promotion> getListSupplyByName(String promotionName) {
         return promotionRepository.getListPromotionByName(promotionName);
     }
 

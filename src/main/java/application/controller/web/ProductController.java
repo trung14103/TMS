@@ -109,6 +109,8 @@ public class ProductController extends  BaseController{
         ProductVM productVM2 = new ProductVM();
         productVM2.setId(product2.getId());
         productVM2.setName(product2.getName());
+        productVM2.setPriceAfterSale(product2.getPromotion() != null ? (product2.getPrice() - product2.getPrice() * product2.getPromotion().getDiscount() / 100) : 0);
+        productVM2.setPromotionDiscount(product2.getPromotion() != null ? product2.getPromotion().getDiscount() : 0);
         productVM2.setPrice(product2.getPrice());
         productVM2.setShortDesc(product2.getShortDesc());
         productVM2.setMainImage(product2.getMainImage());
@@ -224,6 +226,8 @@ public class ProductController extends  BaseController{
             productVM.setRateAvg(Math.round(rateService.getRateAvg(product.getId())));
             productVM.setName(product.getName());
             productVM.setMainImage(product.getMainImage());
+            productVM2.setPriceAfterSale(product2.getPromotion() != null ? (product2.getPrice() - product2.getPrice() * product2.getPromotion().getDiscount() / 100) : 0);
+            productVM2.setPromotionDiscount(product2.getPromotion() != null ? product2.getPromotion().getDiscount() : 0);
             productVM.setPrice(product.getPrice());
             productVM.setShortDesc(product.getShortDesc());
          //   productVM.setCreatedDate(product.getCreatedDate());
@@ -266,9 +270,20 @@ public class ProductController extends  BaseController{
                         cartProductVM.setColorName(cartProduct.getProductEntity().getColor().getName());
                         cartProductVM.setSizeName(cartProduct.getProductEntity().getSize().getName());
                         cartProductVM.setProductEntityId(cartProduct.getProductEntityId());
+
+                        //Check if this product has been promoted
+                        Promotion promotion = cartProduct.getProductEntity().getProduct().getPromotion();
+                        double standardPrice = cartProduct.getProductEntity().getProduct().getPrice();
+                        double priceChunk;
+                        if (promotion != null) {
+                            standardPrice = standardPrice - (standardPrice * promotion.getDiscount() / 100);
+                            priceChunk = cartProduct.getAmount() * standardPrice;
+                        } else {
+                            priceChunk = cartProduct.getAmount() * cartProduct.getProductEntity().getProduct().getPrice();
+                        }
+                        totalPrice += priceChunk;
                         double price = cartProduct.getAmount()*cartProduct.getProductEntity().getProduct().getPrice();
-                        cartProductVM.setPrice(cartProduct.getProductEntity().getProduct().getPrice());
-                        totalPrice += price;
+                        cartProductVM.setPrice(standardPrice);
                         cartProductVMS.add(cartProductVM);
                     }
                 }

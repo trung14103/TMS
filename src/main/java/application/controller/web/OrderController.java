@@ -29,6 +29,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
 @Controller
 @RequestMapping(path = "/order")
 public class OrderController extends BaseController {
@@ -73,18 +75,19 @@ public class OrderController extends BaseController {
 
     @Autowired
     MessageService messageService;
+
     @GetMapping("/checkout")
     public String checkoutA(Model model,
-                           @Valid @ModelAttribute("productname") ProductVM productName,
+                            @Valid @ModelAttribute("productname") ProductVM productName,
 
-                           HttpServletResponse response,
-                           HttpServletRequest request,
-                           final Principal principal) {
+                            HttpServletResponse response,
+                            HttpServletRequest request,
+                            final Principal principal) {
         ProductDetailVM vm = new ProductDetailVM();
         List<Category> categoryList = categoryService.getAll();
         List<CategoryVM> categoryVMList = new ArrayList<>();
-        OrderVM order= new OrderVM();
-        for(Category category : categoryList) {
+        OrderVM order = new OrderVM();
+        for (Category category : categoryList) {
             CategoryVM categoryVM = new CategoryVM();
             categoryVM.setId(category.getId());
             categoryVM.setName(category.getName());
@@ -94,7 +97,7 @@ public class OrderController extends BaseController {
         List<Supply> supplyList = supplyService.getAll();
         List<SupplyVM> supplyVMList = new ArrayList<>();
 
-        for(Supply supply : supplyList) {
+        for (Supply supply : supplyList) {
             SupplyVM supplyVM = new SupplyVM();
             supplyVM.setId(supply.getId());
             supplyVM.setName(supply.getName());
@@ -102,11 +105,10 @@ public class OrderController extends BaseController {
         }
 
 
-
         List<Size> sizeList = sizeService.getAll();
         List<SizeVM> sizeVMList = new ArrayList<>();
 
-        for(Size size2 : sizeList) {
+        for (Size size2 : sizeList) {
             SizeVM sizeVM = new SizeVM();
             sizeVM.setId(size2.getId());
             sizeVM.setName(size2.getName());
@@ -117,48 +119,46 @@ public class OrderController extends BaseController {
         List<Color> colorList = colorService.getAll();
         List<ColorVM> colorVMList = new ArrayList<>();
 
-        for(Color color : colorList) {
+        for (Color color : colorList) {
             ColorVM colorVM = new ColorVM();
             colorVM.setId(color.getId());
             colorVM.setName(color.getName());
             colorVMList.add(colorVM);
         }
-        int totalStar=0, amountStar=0;
         List<RateVM> rateVMList = new ArrayList<>();
 
-        if(amountStar==0)
-            vm.setTotalRate(0);
-        else
-            vm.setRateAvg(Math.round(totalStar/amountStar));
+        vm.setTotalRate(0);
         Pageable pageable = new PageRequest(0, 50);
 
         Page<Product> productPage = null;
 
         if (productName.getName() != null && !productName.getName().isEmpty()) {
-            productPage = productService.getListProductByCategoryOrProductNameContaining(pageable,null,productName.getName().trim());
+            productPage = productService.getListProductByCategoryOrProductNameContaining(pageable, null, productName.getName().trim());
             vm.setKeyWord("Find with key: " + productName.getName());
         } else {
-            productPage = productService.getListProductByCategoryOrProductNameContaining(pageable,null,null);
+            productPage = productService.getListProductByCategoryOrProductNameContaining(pageable, null, null);
         }
 
 
         List<ProductVM> productVMList = new ArrayList<>();
 
-        for(Product product : productPage.getContent()) {
+        for (Product product : productPage.getContent()) {
             ProductVM productVM = new ProductVM();
-            if(product.getCategory() == null) {
+            Promotion promotion = product.getPromotion();
+
+            if (product.getCategory() == null) {
                 productVM.setCategoryName("");
             } else {
                 productVM.setCategoryName(product.getCategory().getName());
             }
 
-            if(product.getSupply() == null) {
+            if (product.getSupply() == null) {
                 productVM.setSupplyName("");
             } else {
                 productVM.setSupplyName(product.getSupply().getName());
             }
 
-            if(product.getPromotion() == null) {
+            if (product.getPromotion() == null) {
                 productVM.setPromotionName("");
             } else {
                 productVM.setPromotionName(product.getPromotion().getName());
@@ -169,7 +169,7 @@ public class OrderController extends BaseController {
             productVM.setMainImage(product.getMainImage());
             productVM.setPrice(product.getPrice());
             productVM.setShortDesc(product.getShortDesc());
-         //   productVM.setCreatedDate(product.getCreatedDate());
+            //   productVM.setCreatedDate(product.getCreatedDate());
             productVM.setCategoryId(product.getCategoryId());
             productVMList.add(productVM);
         }
@@ -179,23 +179,23 @@ public class OrderController extends BaseController {
         double totalPrice = 0;
         List<CartProductVM> cartProductVMS = new ArrayList<>();
 
-        String  username = SecurityContextHolder.getContext().getAuthentication().getName();
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User userEntity = userService.findUserByUsername(username);
         String guid = getGuid(request);
 
         DecimalFormat df = new DecimalFormat("####0.00");
 
         try {
-            if(guid != null) {
+            if (guid != null) {
                 Cart cartEntity;
-                if(userEntity==null)
-                    cartEntity= cartService.findFirstCartByGuid(guid);
+                if (userEntity == null)
+                    cartEntity = cartService.findFirstCartByGuid(guid);
                 else
-                    cartEntity= cartService.findByUserName(userEntity.getUserName());
+                    cartEntity = cartService.findByUserName(userEntity.getUserName());
 
-                if(cartEntity != null) {
+                if (cartEntity != null) {
                     productAmount = cartEntity.getListCartProducts().size();
-                    for(CartProduct cartProduct : cartEntity.getListCartProducts()) {
+                    for (CartProduct cartProduct : cartEntity.getListCartProducts()) {
                         CartProductVM cartProductVM = new CartProductVM();
                         cartProductVM.setId(cartProduct.getId());
                         cartProductVM.setName(cartProduct.getProductEntity().getProduct().getName());
@@ -206,9 +206,17 @@ public class OrderController extends BaseController {
                         cartProductVM.setColorName(cartProduct.getProductEntity().getColor().getName());
                         cartProductVM.setSizeName(cartProduct.getProductEntity().getSize().getName());
                         cartProductVM.setProductEntityId(cartProduct.getProductEntityId());
-                        double price = cartProduct.getAmount()*cartProduct.getProductEntity().getProduct().getPrice();
-                        cartProductVM.setPrice(cartProduct.getProductEntity().getProduct().getPrice());
-                        totalPrice += price;
+                        //Check if this product has been promoted
+                        Promotion promotion = cartProduct.getProductEntity().getProduct().getPromotion();
+                        double priceChunk;
+                        if (promotion != null) {
+                            double priceAfterPromotion = cartProduct.getProductEntity().getProduct().getPrice() - (promotion.getDiscount() / 100);
+                            priceChunk = cartProduct.getAmount() * priceAfterPromotion;
+                        } else {
+                            priceChunk = cartProduct.getAmount() * cartProduct.getProductEntity().getProduct().getPrice();
+                        }
+                        cartProductVM.setPrice(priceChunk);
+                        totalPrice += priceChunk;
                         cartProductVMS.add(cartProductVM);
                     }
                 }
@@ -229,8 +237,8 @@ public class OrderController extends BaseController {
         vm.setSizeVMList(sizeVMList);
         vm.setSupplyVMList(supplyVMList);
         vm.setLayoutHeaderAdminVM(this.getLayoutHeaderAdminVM());
-        model.addAttribute("order",order);
-        model.addAttribute("vm",vm);
+        model.addAttribute("order", order);
+        model.addAttribute("vm", vm);
 //        CheckoutVM vm = new CheckoutVM();
 //        int productAmount = 0;
 //
@@ -276,12 +284,13 @@ public class OrderController extends BaseController {
 //        vm.setLayoutHeaderAdminVM(this.getLayoutHeaderAdminVM());
         return "/checkout";
     }
+
     @PostMapping("/checkout")
     public String checkout(@Valid @ModelAttribute("order") OrderVM orderVM,
-                                  @Valid @ModelAttribute("productname") ProductVM productName,
-                                  HttpServletResponse response,
-                                  HttpServletRequest request,
-                                  final Principal principal) {
+                           @Valid @ModelAttribute("productname") ProductVM productName,
+                           HttpServletResponse response,
+                           HttpServletRequest request,
+                           final Principal principal) {
         Order order = new Order();
         DataApiResult data = new DataApiResult();
 
@@ -291,21 +300,21 @@ public class OrderController extends BaseController {
 
         String guid = null;
 
-        if(cookie!=null) {
-            for(Cookie c : cookie) {
-                if(c.getName().equals("guid")) {
+        if (cookie != null) {
+            for (Cookie c : cookie) {
+                if (c.getName().equals("guid")) {
                     flag = true;
                     guid = c.getValue();
                 }
             }
         }
 
-        if(flag == true) {
+        if (flag) {
 
             double totalPrice = 0;
 
-            if(principal != null) {
-                String  username = SecurityContextHolder.getContext().getAuthentication().getName();
+            if (principal != null) {
+                String username = SecurityContextHolder.getContext().getAuthentication().getName();
                 order.setUserName(username);
             }
 
@@ -319,7 +328,7 @@ public class OrderController extends BaseController {
             order.setCreatedDateShow(new Date());
 
             Cart cartEntity = cartService.findFirstCartByGuid(guid);
-            if(cartEntity != null) {
+            if (cartEntity != null) {
                 List<OrderProduct> orderProducts = new ArrayList<>();
                 for (CartProduct cartProduct : cartEntity.getListCartProducts()) {
                     OrderProduct orderProduct = new OrderProduct();
@@ -327,7 +336,7 @@ public class OrderController extends BaseController {
                     orderProduct.setProductEntity(cartProduct.getProductEntity());
                     orderProduct.setAmount(cartProduct.getAmount());
                     ProductEntity current = productEntityService.findOne(cartProduct.getProductEntity().getId());
-                    if(cartProduct.getAmount()>current.getAmount()){
+                    if (cartProduct.getAmount() > current.getAmount()) {
                         Message message = new Message();
                         message.setEmail("system");
                         message.setStatus(1);
@@ -335,23 +344,31 @@ public class OrderController extends BaseController {
                         message.setTitle("Not Enough Amount");
                         message.setContent(order.toString());
                         messageService.update(message);
-                    } else{
-                        current.setAmount(current.getAmount()-cartProduct.getAmount());
+                    } else {
+                        current.setAmount(current.getAmount() - cartProduct.getAmount());
                     }
                     productEntityService.update(current);
-                    double price = cartProduct.getAmount() * cartProduct.getProductEntity().getProduct().getPrice();
-                    totalPrice += price;
+                    //Check if this product has been promoted
+                    Promotion promotion = cartProduct.getProductEntity().getProduct().getPromotion();
+                    double priceChunk;
+                    if (promotion != null) {
+                        double priceAfterPromotion = cartProduct.getProductEntity().getProduct().getPrice() - (cartProduct.getProductEntity().getProduct().getPrice() * promotion.getDiscount() / 100);
+                        priceChunk = cartProduct.getAmount() * priceAfterPromotion;
+                    } else {
+                        priceChunk = cartProduct.getAmount() * cartProduct.getProductEntity().getProduct().getPrice();
+                    }
+                    totalPrice += priceChunk;
 
-                    orderProduct.setPrice(price);
+                    orderProduct.setPrice(priceChunk);
 
                     orderProducts.add(orderProduct);
                 }
 
                 order.setListProductOrders(orderProducts);
                 order.setPrice(totalPrice);
-                if(totalPrice>1000000){
+                if (totalPrice > 1000000) {
                     order.setShipPrice(0);
-                } else{
+                } else {
                     order.setShipPrice(49500);
                 }
                 orderService.addNewOrder(order);
@@ -387,7 +404,7 @@ public class OrderController extends BaseController {
 
         List<Category> categoryList = categoryService.getAll();
         List<CategoryVM> categoryVMList = new ArrayList<>();
-        for(Category category : categoryList) {
+        for (Category category : categoryList) {
             CategoryVM categoryVM = new CategoryVM();
             categoryVM.setId(category.getId());
             categoryVM.setName(category.getName());
@@ -403,25 +420,25 @@ public class OrderController extends BaseController {
 
         List<Order> orderEntityList = null;
 
-        if(principal != null) {
-            String  username = SecurityContextHolder.getContext().getAuthentication().getName();
-            orderEntityList = orderService.findOrderByGuidOrUserName(null,username);
+        if (principal != null) {
+            String username = SecurityContextHolder.getContext().getAuthentication().getName();
+            orderEntityList = orderService.findOrderByGuidOrUserName(null, username);
         } else {
-            if(cookie != null) {
-                for(Cookie c : cookie) {
-                    if(c.getName().equals("guid")) {
+            if (cookie != null) {
+                for (Cookie c : cookie) {
+                    if (c.getName().equals("guid")) {
                         flag = true;
                         guid = c.getValue();
                     }
                 }
-                if(flag == true) {
-                    orderEntityList = orderService.findOrderByGuidOrUserName(guid,null);
+                if (flag) {
+                    orderEntityList = orderService.findOrderByGuidOrUserName(guid, null);
                 }
             }
         }
 
-        if(orderEntityList != null) {
-            for(Order order : orderEntityList) {
+        if (orderEntityList != null) {
+            for (Order order : orderEntityList) {
                 OrderVM orderVM = new OrderVM();
                 orderVM.setId(order.getId());
                 orderVM.setCustomerName(order.getCustomerName());
@@ -434,30 +451,26 @@ public class OrderController extends BaseController {
                 orderVMS.add(orderVM);
             }
         }
-        if(orderEntityList.size()==0){
-            vm.setFound(false);
-        } else{
-            vm.setFound(true);
-        }
+        vm.setFound(orderEntityList.size() != 0);
         int productAmount = 0;
         double totalPrice = 0;
         List<CartProductVM> cartProductVMS = new ArrayList<>();
 
-        String  username = SecurityContextHolder.getContext().getAuthentication().getName();
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User userEntity = userService.findUserByUsername(username);
 
 
         try {
-            if(guid != null ||userEntity!=null ) {
+            if (guid != null || userEntity != null) {
                 Cart cartEntity;
-                if(userEntity==null)
-                    cartEntity= cartService.findFirstCartByGuid(guid);
+                if (userEntity == null)
+                    cartEntity = cartService.findFirstCartByGuid(guid);
                 else
-                    cartEntity= cartService.findByUserName(userEntity.getUserName());
+                    cartEntity = cartService.findByUserName(userEntity.getUserName());
 
-                if(cartEntity != null) {
+                if (cartEntity != null) {
                     productAmount = cartEntity.getListCartProducts().size();
-                    for(CartProduct cartProduct : cartEntity.getListCartProducts()) {
+                    for (CartProduct cartProduct : cartEntity.getListCartProducts()) {
                         CartProductVM cartProductVM = new CartProductVM();
                         cartProductVM.setId(cartProduct.getId());
                         cartProductVM.setName(cartProduct.getProductEntity().getProduct().getName());
@@ -468,10 +481,18 @@ public class OrderController extends BaseController {
                         cartProductVM.setColorName(cartProduct.getProductEntity().getColor().getName());
                         cartProductVM.setSizeName(cartProduct.getProductEntity().getSize().getName());
                         cartProductVM.setProductEntityId(cartProduct.getProductEntityId());
-                        double price = cartProduct.getAmount()*cartProduct.getProductEntity().getProduct().getPrice();
-                        cartProductVM.setTotalPrice(price);
-                        cartProductVM.setPrice(cartProduct.getProductEntity().getProduct().getPrice());
-                        totalPrice += price;
+                        //Check if this product has been promoted
+                        Promotion promotion = cartProduct.getProductEntity().getProduct().getPromotion();
+                        double priceChunk;
+                        double standardPrice = cartProduct.getProductEntity().getProduct().getPrice();
+                        if (promotion != null) {
+                            standardPrice = standardPrice - (standardPrice * promotion.getDiscount() / 100);
+                            priceChunk = cartProduct.getAmount() * standardPrice;
+                        } else {
+                            priceChunk = cartProduct.getAmount() * cartProduct.getProductEntity().getProduct().getPrice();
+                        }
+                        cartProductVM.setPrice(standardPrice);
+                        totalPrice += priceChunk;
                         cartProductVMS.add(cartProductVM);
                     }
                 }
@@ -485,7 +506,7 @@ public class OrderController extends BaseController {
         vm.setCartProductVMList(cartProductVMS);
         vm.setOrderVMList(orderVMS);
         vm.setCategoryVMList(categoryVMList);
-        model.addAttribute("vm",vm);
+        model.addAttribute("vm", vm);
         return "/order-history";
     }
 
@@ -508,9 +529,9 @@ public class OrderController extends BaseController {
 
         Order orderEntity = orderService.findOne(orderId);
 
-        if(orderEntity != null) {
+        if (orderEntity != null) {
             vm.setDeliveryStatusId(orderEntity.getDeliveryStatusId());
-            for(OrderProduct orderProduct : orderEntity.getListProductOrders()) {
+            for (OrderProduct orderProduct : orderEntity.getListProductOrders()) {
                 OrderProductVM orderProductVM = new OrderProductVM();
 
                 orderProductVM.setProductId(orderProduct.getProductEntity().getProduct().getId());
@@ -519,9 +540,20 @@ public class OrderController extends BaseController {
                 orderProductVM.setName(orderProduct.getProductEntity().getProduct().getName());
                 orderProductVM.setColorName(orderProduct.getProductEntity().getColor().getName());
                 orderProductVM.setSizeName(orderProduct.getProductEntity().getSize().getName());
-                orderProductVM.setPrice((orderProduct.getProductEntity().getProduct().getPrice()));
-                orderProductVM.setTotalPrice(orderProduct.getProductEntity().getProduct().getPrice()*orderProduct.getAmount());
-                totalPriceOrder += orderProduct.getPrice();
+
+                //Check if this product has been promoted
+                Promotion promotion = orderProduct.getProductEntity().getProduct().getPromotion();
+                double priceChunk;
+                double standardPrice = orderProduct.getProductEntity().getProduct().getPrice();
+                if (promotion != null) {
+                    standardPrice = standardPrice - (standardPrice * promotion.getDiscount() / 100);
+                    priceChunk = orderProduct.getAmount() * standardPrice;
+                } else {
+                    priceChunk = orderProduct.getAmount() * orderProduct.getProductEntity().getProduct().getPrice();
+                }
+                orderProductVM.setPrice(standardPrice);
+                orderProductVM.setTotalPrice(priceChunk);
+                totalPriceOrder += priceChunk;
 
                 orderProductVMS.add(orderProductVM);
             }
@@ -530,20 +562,20 @@ public class OrderController extends BaseController {
         double totalPrice = 0;
         List<CartProductVM> cartProductVMS = new ArrayList<>();
 
-        String  username = SecurityContextHolder.getContext().getAuthentication().getName();
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User userEntity = userService.findUserByUsername(username);
         String guid = getGuid(request);
         try {
-            if(guid != null) {
+            if (guid != null) {
                 Cart cartEntity;
-                if(userEntity==null)
-                    cartEntity= cartService.findFirstCartByGuid(guid);
+                if (userEntity == null)
+                    cartEntity = cartService.findFirstCartByGuid(guid);
                 else
-                    cartEntity= cartService.findByUserName(userEntity.getUserName());
+                    cartEntity = cartService.findByUserName(userEntity.getUserName());
 
-                if(cartEntity != null) {
+                if (cartEntity != null) {
                     productAmount = cartEntity.getListCartProducts().size();
-                    for(CartProduct cartProduct : cartEntity.getListCartProducts()) {
+                    for (CartProduct cartProduct : cartEntity.getListCartProducts()) {
                         CartProductVM cartProductVM = new CartProductVM();
                         cartProductVM.setId(cartProduct.getId());
                         cartProductVM.setName(cartProduct.getProductEntity().getProduct().getName());
@@ -554,9 +586,17 @@ public class OrderController extends BaseController {
                         cartProductVM.setColorName(cartProduct.getProductEntity().getColor().getName());
                         cartProductVM.setSizeName(cartProduct.getProductEntity().getSize().getName());
                         cartProductVM.setProductEntityId(cartProduct.getProductEntityId());
-                        double price = cartProduct.getAmount()*cartProduct.getProductEntity().getProduct().getPrice();
-                        cartProductVM.setPrice(cartProduct.getProductEntity().getProduct().getPrice());
-                        totalPrice += price;
+                        //Check if this product has been promoted
+                        Promotion promotion = cartProduct.getProductEntity().getProduct().getPromotion();
+                        double priceChunk;
+                        double standardPrice = cartProduct.getProductEntity().getProduct().getPrice();
+                        if (promotion != null) {
+                            standardPrice = standardPrice - (standardPrice * promotion.getDiscount() / 100);
+                            priceChunk = cartProduct.getAmount() * standardPrice;
+                        } else {
+                            priceChunk = cartProduct.getAmount() * cartProduct.getProductEntity().getProduct().getPrice();
+                        }
+                        cartProductVM.setPrice(standardPrice);
                         cartProductVMS.add(cartProductVM);
                     }
                 }
@@ -568,21 +608,21 @@ public class OrderController extends BaseController {
         List<Product> productList = productService.getHotProduct();
         List<ProductVM> productVMList = new ArrayList<>();
 
-        for(Product product : productList) {
+        for (Product product : productList) {
             ProductVM productVM = new ProductVM();
-            if(product.getCategory() == null) {
+            if (product.getCategory() == null) {
                 productVM.setCategoryName("");
             } else {
                 productVM.setCategoryName(product.getCategory().getName());
             }
 
-            if(product.getSupply() == null) {
+            if (product.getSupply() == null) {
                 productVM.setSupplyName("");
             } else {
                 productVM.setSupplyName(product.getSupply().getName());
             }
 
-            if(product.getPromotion() == null) {
+            if (product.getPromotion() == null) {
                 productVM.setPromotionName("");
             } else {
                 productVM.setPromotionName(product.getPromotion().getName());
@@ -591,9 +631,9 @@ public class OrderController extends BaseController {
             productVM.setRateAvg(Math.round(rateService.getRateAvg(product.getId())));
             productVM.setName(product.getName());
             productVM.setMainImage(product.getMainImage());
-            productVM.setPrice(product.getPrice());
+            productVM.setPrice(product.getPromotion() != null ? (product.getPrice() - product.getPrice() * product.getPromotion().getDiscount() / 100) : product.getPrice());
             productVM.setShortDesc(product.getShortDesc());
-         //   productVM.setCreatedDate(product.getCreatedDate());
+            //   productVM.setCreatedDate(product.getCreatedDate());
             productVM.setSizeVMList(MyFunction.toSizeVMList(sizeService.getListSizeByProductId(product.getId())));
             productVM.setColorVMList(MyFunction.toColorVMList(colorService.getListColorByProductId(product.getId())));
             productVM.setProductImageVMList(MyFunction.toProductImageVMList(product.getProductImageList()));
@@ -604,7 +644,7 @@ public class OrderController extends BaseController {
 
         List<ProductEntity> productEntityList = productEntityService.getAll();
         List<ProductEntityVM> productEntityVMList = new ArrayList<>();
-        for(ProductEntity item : productEntityList){
+        for (ProductEntity item : productEntityList) {
             ProductEntityVM entityVM = new ProductEntityVM();
             entityVM.setColorName(item.getColor().getName());
             entityVM.setSizeName(item.getSize().getName());
@@ -626,23 +666,24 @@ public class OrderController extends BaseController {
         vm.setTotalPriceOrder((totalPriceOrder));
         vm.setTotalProduct(orderProductVMS.size());
 
-        model.addAttribute("vm",vm);
+        model.addAttribute("vm", vm);
 
         return "/order-detail";
     }
 
     @PostMapping("/cancel/{orderId}")
-    public  @ResponseBody  BaseApiResult cancelOrder(Model model,
-                                     @Valid @ModelAttribute("productname") ProductVM productName,
-                                     @PathVariable("orderId") int orderId,
-                                     HttpServletResponse response,
-                                     HttpServletRequest request,
-                                     final Principal principal) {
+    public @ResponseBody
+    BaseApiResult cancelOrder(Model model,
+                              @Valid @ModelAttribute("productname") ProductVM productName,
+                              @PathVariable("orderId") int orderId,
+                              HttpServletResponse response,
+                              HttpServletRequest request,
+                              final Principal principal) {
 
         BaseApiResult result = new BaseApiResult();
         Order order = orderService.findOne(orderId);
-        if(order!=null){
-            try{
+        if (order != null) {
+            try {
                 order.setDeliveryStatusId(DELIVERYSTATUS.CANCEL);
                 orderService.update(order);
 
@@ -661,7 +702,7 @@ public class OrderController extends BaseController {
                 result.setMessage("Canceled Successfully");
                 result.setSuccess(true);
                 return result;
-            } catch (Exception e){
+            } catch (Exception e) {
                 result.setMessage(e.getMessage());
                 result.setSuccess(false);
                 return result;
@@ -675,27 +716,28 @@ public class OrderController extends BaseController {
     public String getGuid(HttpServletRequest request) {
         Cookie cookie[] = request.getCookies();
 
-        if(cookie!=null) {
-            for(Cookie c :cookie) {
-                if(c.getName().equals("guid"))  return c.getValue();
+        if (cookie != null) {
+            for (Cookie c : cookie) {
+                if (c.getName().equals("guid")) return c.getValue();
             }
         }
         return null;
     }
 
-    @PostMapping(value="/changeStatus")
-    public @ResponseBody DataApiResult changeStatus(@Valid @RequestBody OrderDTO dto
-                                                    ){
+    @PostMapping(value = "/changeStatus")
+    public @ResponseBody
+    DataApiResult changeStatus(@Valid @RequestBody OrderDTO dto
+    ) {
         DataApiResult result = new DataApiResult();
         Order order = orderService.findOne(dto.getId());
-        if(order!=null){
-           // if(order.getDeliveryStatusId()== DELIVERYSTATUS.SHIPPED ||
-           //         order.getDeliveryStatusId()== DELIVERYSTATUS.CANCEL||
-             //       order.getDeliveryStatusId()>dto.getStatus()){
-             //   result.setMessage("Update Failed");
-             //   result.setSuccess(false);
-             //   return result;
-           // }
+        if (order != null) {
+            // if(order.getDeliveryStatusId()== DELIVERYSTATUS.SHIPPED ||
+            //         order.getDeliveryStatusId()== DELIVERYSTATUS.CANCEL||
+            //       order.getDeliveryStatusId()>dto.getStatus()){
+            //   result.setMessage("Update Failed");
+            //   result.setSuccess(false);
+            //   return result;
+            // }
             order.setDeliveryStatusId(dto.getStatus());
             orderService.update(order);
 

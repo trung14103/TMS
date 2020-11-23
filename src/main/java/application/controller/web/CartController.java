@@ -28,7 +28,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping(path = "/cart")
-public class CartController extends  BaseController{
+public class CartController extends BaseController {
 
     @Autowired
     CategoryService categoryService;
@@ -63,12 +63,11 @@ public class CartController extends  BaseController{
                        @Valid @ModelAttribute("productname") ProductDTO productName,
                        HttpServletResponse response,
                        HttpServletRequest request,
-                       final Principal principal)
-    {
+                       final Principal principal) {
         CartVM vm = new CartVM();
         List<Category> categoryList = categoryService.getAll();
         List<CategoryVM> categoryVMList = new ArrayList<>();
-        for(Category category : categoryList) {
+        for (Category category : categoryList) {
             CategoryVM categoryVM = new CategoryVM();
             categoryVM.setId(category.getId());
             categoryVM.setName(category.getName());
@@ -78,7 +77,7 @@ public class CartController extends  BaseController{
         List<Supply> supplyList = supplyService.getAll();
         List<SupplyVM> supplyVMList = new ArrayList<>();
 
-        for(Supply supply : supplyList) {
+        for (Supply supply : supplyList) {
             SupplyVM supplyVM = new SupplyVM();
             supplyVM.setId(supply.getId());
             supplyVM.setName(supply.getName());
@@ -86,11 +85,10 @@ public class CartController extends  BaseController{
         }
 
 
-
         List<Size> sizeList = sizeService.getAll();
         List<SizeVM> sizeVMList = new ArrayList<>();
 
-        for(Size size2 : sizeList) {
+        for (Size size2 : sizeList) {
             SizeVM sizeVM = new SizeVM();
             sizeVM.setId(size2.getId());
             sizeVM.setName(size2.getName());
@@ -101,13 +99,12 @@ public class CartController extends  BaseController{
         List<Color> colorList = colorService.getAll();
         List<ColorVM> colorVMList = new ArrayList<>();
 
-        for(Color color : colorList) {
+        for (Color color : colorList) {
             ColorVM colorVM = new ColorVM();
             colorVM.setId(color.getId());
             colorVM.setName(color.getName());
             colorVMList.add(colorVM);
         }
-
 
 
 //        Pageable pageable = new PageRequest(0, 50);
@@ -158,13 +155,13 @@ public class CartController extends  BaseController{
         double totalPrice = 0;
         List<CartProductVM> cartProductVMS = new ArrayList<>();
 
-        String  username = SecurityContextHolder.getContext().getAuthentication().getName();
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User userEntity = userService.findUserByUsername(username);
         String guid = getGuid(request);
         Order order = new Order();
-        if(principal!= null) {
+        if (principal != null) {
 
-            if(userEntity!= null) {
+            if (userEntity != null) {
                 order.setAddress(userEntity.getAddress());
                 order.setCustomerName(userEntity.getName());
                 order.setPhoneNumber(userEntity.getPhoneNumber());
@@ -174,16 +171,16 @@ public class CartController extends  BaseController{
         DecimalFormat df = new DecimalFormat("####0.00");
 
         try {
-            if(guid != null) {
+            if (guid != null) {
                 Cart cartEntity;
-                if(userEntity==null)
-                    cartEntity= cartService.findFirstCartByGuid(guid);
+                if (userEntity == null)
+                    cartEntity = cartService.findFirstCartByGuid(guid);
                 else
-                    cartEntity= cartService.findByUserName(userEntity.getUserName());
+                    cartEntity = cartService.findByUserName(userEntity.getUserName());
 
-                if(cartEntity != null) {
+                if (cartEntity != null) {
                     productAmount = cartEntity.getListCartProducts().size();
-                    for(CartProduct cartProduct : cartEntity.getListCartProducts()) {
+                    for (CartProduct cartProduct : cartEntity.getListCartProducts()) {
                         CartProductVM cartProductVM = new CartProductVM();
                         cartProductVM.setId(cartProduct.getId());
                         cartProductVM.setName(cartProduct.getProductEntity().getProduct().getName());
@@ -194,10 +191,20 @@ public class CartController extends  BaseController{
                         cartProductVM.setColorName(cartProduct.getProductEntity().getColor().getName());
                         cartProductVM.setSizeName(cartProduct.getProductEntity().getSize().getName());
                         cartProductVM.setProductEntityId(cartProduct.getProductEntityId());
-                        double price = cartProduct.getAmount()*cartProduct.getProductEntity().getProduct().getPrice();
-                        cartProductVM.setTotalPrice(price);
-                        cartProductVM.setPrice(cartProduct.getProductEntity().getProduct().getPrice());
-                        totalPrice += price;
+
+                        //Check if this product has been promoted
+                        Promotion promotion = cartProduct.getProductEntity().getProduct().getPromotion();
+                        double priceChunk;
+                        double standardPrice = cartProduct.getProductEntity().getProduct().getPrice();
+                        if (promotion != null) {
+                            standardPrice = standardPrice - (standardPrice * promotion.getDiscount() / 100);
+                            priceChunk = cartProduct.getAmount() * standardPrice;
+                        } else {
+                            priceChunk = cartProduct.getAmount() * cartProduct.getProductEntity().getProduct().getPrice();
+                        }
+                        cartProductVM.setTotalPrice(priceChunk);
+                        cartProductVM.setPrice(standardPrice);
+                        totalPrice += priceChunk;
                         cartProductVMS.add(cartProductVM);
                     }
                 }
@@ -209,12 +216,12 @@ public class CartController extends  BaseController{
         vm.setCartProductVMList(cartProductVMS);
         vm.setProductAmount(productAmount);
         vm.setTotalPrice(totalPrice);
-        if(totalPrice>1000000){
+        if (totalPrice > 1000000) {
             vm.setShipPrice(0);
             vm.setTotal(totalPrice);
         } else {
             vm.setShipPrice(49500);
-            vm.setTotal(totalPrice+49500);
+            vm.setTotal(totalPrice + 49500);
         }
 
         vm.setCategoryVMList(categoryVMList);
@@ -223,17 +230,17 @@ public class CartController extends  BaseController{
         vm.setSupplyVMList(supplyVMList);
         vm.setLayoutHeaderAdminVM(this.getLayoutHeaderAdminVM());
 //        vm.setOrderVM(order);
-        model.addAttribute("order",order);
-        model.addAttribute("vm",vm);
+        model.addAttribute("order", order);
+        model.addAttribute("vm", vm);
         return "/cart";
     }
 
     public String getGuid(HttpServletRequest request) {
         Cookie cookie[] = request.getCookies();
 
-        if(cookie!=null) {
-            for(Cookie c :cookie) {
-                if(c.getName().equals("guid"))  return c.getValue();
+        if (cookie != null) {
+            for (Cookie c : cookie) {
+                if (c.getName().equals("guid")) return c.getValue();
             }
         }
         return null;
